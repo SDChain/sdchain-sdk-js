@@ -1,0 +1,30 @@
+{
+  "name": "sdchain-sdk-js",
+  "version": "1.0.0",
+  "description": "The javascript version of SDChain SDK",
+  "private": true,
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agrozyme/sdchain-sdk-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/agrozyme/sdchain-sdk-js/issues"
+  },
+  "homepage": "https://github.com/agrozyme/sdchain-sdk-js#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.3.1",
+    "jasmine": "^3.1.0",
+    "typescript": "^2.9.1"
+  },
+  "dependencies": {
+    "tslib": "^1.9.2"
+  }
+}
