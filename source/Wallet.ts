@@ -1,26 +1,82 @@
+import GetPaymentItem from './Action/Payment/GetPaymentItem';
+import GetPaymentList from './Action/Payment/GetPaymentList';
+import PostPaymentItem from './Action/Payment/PostPaymentItem';
+import MemoItem from './Type/MemoItem';
+import ServiceInterface from './Type/ServiceInterface';
+
 class Wallet {
   static readonly ORDER_TYPE_BUY = 'buy';
   static readonly ORDER_TYPE_SELL = 'sell';
 
-  static deleteOrder(secret: string, address: string, sequence: string) {}
+  protected service: ServiceInterface;
 
-  static getBalance(address: string) {}
+  constructor(service: ServiceInterface) {
+    this.service = service;
+  }
 
-  static getOrderInfo(address: string, hash: string) {}
+  static deleteOrder(secret: string, address: string, sequence: string) {
+  }
 
-  static getOrderList(address: string) {}
+  static getBalance(address: string) {
+  }
 
-  static getPaymentInfo(address: string, hash: string) {}
+  static getOrderInfo(address: string, hash: string) {
+  }
 
-  static getPaymentList(address: string, opts: object) {}
+  static getOrderList(address: string) {
+  }
 
-  static getTransactionInfo(address: string, hash: string) {}
+  async getPaymentInfo(address: string, hash: string) {
+    const options = {
+      transform: {
+        address,
+        hash
+      }
+    };
 
-  static getTransactionList(address: string, opts: object) {}
+    return await new GetPaymentItem(this.service).fetch(options);
+  }
 
-  static newWallet() {}
+  async getPaymentList(address: string, query: object) {
+    const options = {
+      transform: {address},
+      query
+    };
 
-  static submitOrder(secret: string, address: string, baseAmount: string, counterAmount: string, isBuy: boolean) {}
+    const data = await new GetPaymentList(this.service).fetch(options);
+    return data.payments;
+  }
 
-  static submitPayment(secret: string, sourceAddress: string, destAddress: string, amount: string, memo: string) {}
+  static getTransactionInfo(address: string, hash: string) {
+  }
+
+  static getTransactionList(address: string, opts: object) {
+  }
+
+  static newWallet() {
+  }
+
+  static submitOrder(secret: string, address: string, baseAmount: string, counterAmount: string, isBuy: boolean) {
+  }
+
+  async submitPayment(secret: string, sourceAddress: string, destAddress: string, amount: string, memo?: MemoItem) {
+    const memos = (memo) ? [memo] : [];
+    const options = {
+      transform: {source_address: sourceAddress},
+      query: {submit: true},
+      body: {
+        secret,
+        payment: {
+          source_account: sourceAddress,
+          destination_account: destAddress,
+          amount,
+          memos
+        }
+      }
+    };
+
+    return await new PostPaymentItem(this.service).fetch(options);
+  }
 }
+
+export default Wallet;
