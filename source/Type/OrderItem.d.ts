@@ -1,8 +1,8 @@
-import Taker from './Taker';
+import Amount from './Amount';
 
 interface OrderItem {
-  taker_gets: Taker;
-  taker_pays: Taker;
+  taker_gets: Amount;
+  taker_pays: Amount;
   type: string;
 }
 

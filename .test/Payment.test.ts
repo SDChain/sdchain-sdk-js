@@ -3,14 +3,14 @@ import GetPaymentList from '../source/Action/Payment/GetPaymentList';
 import PostPaymentItem from '../source/Action/Payment/PostPaymentItem';
 import Wallet from '../source/Wallet';
 import {online} from './Setup/Service';
-import {data_a, data_b, data_c} from './Setup/Setting';
+import {data_source, data_target} from './Setup/Setting';
 
 describe('Payment API', () => {
   const wallet = new Wallet(online);
 
   it('Get Payment List', async () => {
     const options = {
-      transform: {address: data_a.address},
+      transform: {address: data_source.address},
       query: {per_page: 2}
     };
 
@@ -24,7 +24,7 @@ describe('Payment API', () => {
   });
 
   it('Get Payment List', async () => {
-    const payments = await wallet.getPaymentList(data_a.address, {per_page: 2});
+    const payments = await wallet.getPaymentList(data_source.address, {per_page: 2});
     expect(payments.length).toBe(2);
 
     payments.forEach(payment => {
@@ -35,30 +35,29 @@ describe('Payment API', () => {
   it('Get Payment Item', async () => {
     const options = {
       transform: {
-        address: data_b.address,
-        hash: data_b.payment_hash
+        address: data_source.address,
+        hash: data_source.hash.payment
       }
     };
 
     const result = await new GetPaymentItem(online).fetch(options);
     expect(result.state).toBe('validated');
-
   });
 
   it('Get Payment Item', async () => {
-    const result = await wallet.getPaymentInfo(data_b.address, data_b.payment_hash);
+    const result = await wallet.getPaymentInfo(data_source.address, data_source.hash.payment);
     expect(result.state).toBe('validated');
   });
 
   xit('Post Payment Item', async () => {
     const options = {
-      transform: {source_address: data_b.address},
+      transform: {source_address: data_source.address},
       query: {submit: false},
       body: {
-        secret: data_b.secret,
+        secret: data_source.secret,
         payment: {
-          source_account: data_b.address,
-          destination_account: data_c.address,
+          source_account: data_source.address,
+          destination_account: data_target.address,
           amount: '0',
           memos: []
         }
@@ -71,7 +70,7 @@ describe('Payment API', () => {
   });
 
   xit('Post Payment Item', async () => {
-    const result = await wallet.submitPayment(data_b.secret, data_b.address, data_c.address, '0');
+    const result = await wallet.submitPayment(data_source.secret, data_source.address, data_target.address, '0');
     expect(result.hash).not.toBe('');
   });
 });

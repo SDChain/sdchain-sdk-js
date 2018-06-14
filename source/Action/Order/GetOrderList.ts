@@ -27,7 +27,7 @@ export interface Options {
   transform: Transform;
 }
 
-class GetList extends Base {
+class GetOrderList extends Base {
   protected path: string = `accounts/orders/{address}`;
 
   async fetch(options: Options): Promise<Response> {
@@ -40,4 +40,4 @@ class GetList extends Base {
 
 }
 
-export default GetList;
+export default GetOrderList;

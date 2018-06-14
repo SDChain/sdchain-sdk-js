@@ -1,7 +1,7 @@
-interface Taker {
+interface Amount {
   counterparty: string;
   currency: string;
   value: string;
 }
 
-export default Taker;
+export default Amount;

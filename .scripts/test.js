@@ -1,8 +1,8 @@
 'use strict';
 
 const script = () => {
-  const {PackageManagerFactory, shell} = require('scripts-helper');
-  const manager = PackageManagerFactory.instance.detectManager();
+  const {PackageManager, Shell} = require('@agrozyme/scripts-helper');
+  const manager = PackageManager.detect();
   const packages = ['ts-node', 'jasmine'];
 
   if (false === manager.requireAllGlobalPackages(packages)) {
@@ -11,7 +11,7 @@ const script = () => {
 
   const environment = {'NODE_OPTIONS': `--require ${manager.globalModulePath}/ts-node/register`};
 
-  if (false === shell('jasmine ./.test/**/*.test.ts', environment)) {
+  if (false === Shell.run('jasmine ./.test/**/*.test.ts', environment)) {
     process.exit(1);
   }
 

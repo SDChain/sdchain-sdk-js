@@ -1,15 +1,15 @@
 'use strict';
 
 const script = () => {
-  const {PackageManagerFactory, shell} = require('scripts-helper');
-  const manager = PackageManagerFactory.instance.detectManager();
+  const {PackageManager, Shell} = require('@agrozyme/scripts-helper');
+  const manager = PackageManager.detect();
   const packages = ['typescript'];
 
   if (false === manager.requireAllGlobalPackages(packages)) {
     process.exit(1);
   }
 
-  if (false === shell('tsc')) {
+  if (false === Shell.run('tsc')) {
     process.exit(1);
   }
 };

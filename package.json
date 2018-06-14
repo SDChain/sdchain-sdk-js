@@ -8,27 +8,22 @@
     "install": "node ./.scripts/install.js",
     "test": "node ./.scripts/test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agrozyme/sdchain-sdk-js.git"
-  },
+  "repository": "git+https://github.com/agrozyme/sdchain-sdk-js.git",
   "keywords": [],
-  "author": "",
+  "author": "agrozyme@gmail.com",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/agrozyme/sdchain-sdk-js/issues"
-  },
+  "bugs": "https://github.com/agrozyme/sdchain-sdk-js/issues",
   "homepage": "https://github.com/agrozyme/sdchain-sdk-js#readme",
   "devDependencies": {
     "@types/jasmine": "^2.8.8",
-    "@types/node": "^10.3.2",
+    "@types/node": "^10.3.3",
     "@types/node-fetch": "^2.1.1",
     "@types/urijs": "^1.15.38"
   },
   "dependencies": {
+    "@agrozyme/scripts-helper": "^1.0.30",
     "decimal.js": "^10.0.1",
     "node-fetch": "^2.1.2",
-    "scripts-helper": "^1.0.19",
     "tslib": "^1.9.2",
     "urijs": "^1.19.1"
   }
