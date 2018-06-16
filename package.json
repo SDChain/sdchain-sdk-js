@@ -21,7 +21,7 @@
     "@types/urijs": "^1.15.38"
   },
   "dependencies": {
-    "@agrozyme/scripts-helper": "^1.0.30",
+    "@agrozyme/scripts-helper": "^1.0.31",
     "decimal.js": "^10.0.1",
     "node-fetch": "^2.1.2",
     "tslib": "^1.9.2",
