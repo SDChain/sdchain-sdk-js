@@ -1,6 +1,6 @@
 import Base from '../Base';
 
-export interface Response {
+export interface RawResponse {
   connected: boolean;
   success: boolean;
 }
@@ -8,10 +8,10 @@ export interface Response {
 class GetConnected extends Base {
   protected path: string = 'server/connected';
 
-  async fetch(): Promise<Response> {
+  async fetch(): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<Response>(url);
+    return await service.fetch<RawResponse>(url);
   }
 
 }

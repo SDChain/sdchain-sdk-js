@@ -6,7 +6,7 @@ export interface Order extends OrderItem {
   sequence: number;
 }
 
-export interface Response {
+export interface RawResponse {
   orders: Order[];
   success: boolean;
   validated: boolean;
@@ -30,12 +30,12 @@ export interface Options {
 class GetOrderList extends Base {
   protected path: string = `accounts/orders/{address}`;
 
-  async fetch(options: Options): Promise<Response> {
+  async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     const url = service.getUrl(this.path, targetOptions.transform, targetOptions.query);
-    return await service.fetch<Response>(url);
+    return await service.fetch<RawResponse>(url);
   }
 
 }

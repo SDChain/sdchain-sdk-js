@@ -1,8 +1,8 @@
-import PaymentItem from '../../Type/PaymentItem';
+import TransactionItem from '../../Type/TransactionItem';
 import Base from '../Base';
 
-export interface RawResponse {
-  payments: PaymentItem[];
+export interface Response {
+  transactions: TransactionItem[];
   success: boolean;
 }
 
@@ -11,13 +11,11 @@ export interface Transform {
 }
 
 export interface Query {
-  destination_account?: string;
-  direction?: string;
-  end_ledger?: number;
-  page?: number;
-  per_page?: number;
-  source_account?: string;
+  type?: string;
   start_ledger?: number;
+  end_ledger?: number;
+  per_page?: number;
+  page?: number;
 }
 
 export interface Options {
@@ -25,17 +23,17 @@ export interface Options {
   transform: Transform;
 }
 
-class GetPaymentList extends Base {
-  protected path: string = `accounts/payments/{address}`;
+class GetTransactionList extends Base {
+  protected path: string = `accounts/transactions/{address}`;
 
-  async fetch(options: Options): Promise<RawResponse> {
+  async fetch(options: Options): Promise<Response> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     const url = service.getUrl(this.path, targetOptions.transform, targetOptions.query);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<Response>(url);
   }
 
 }
 
-export default GetPaymentList;
+export default GetTransactionList;

@@ -10,26 +10,19 @@ describe('Payment API', () => {
 
   it('Get Payment List', async () => {
     const options = {
-      transform: {address: data_source.address},
+      transform: {address: data_target.address},
       query: {per_page: 2}
     };
 
     const result = await new GetPaymentList(online).fetch(options);
+    // console.dir(result, {depth: null});
     const {payments} = result;
     expect(payments.length).toBe(2);
-
-    payments.forEach(payment => {
-      expect(typeof payment.timestamp).not.toBe('string');
-    });
   });
 
   it('Get Payment List', async () => {
-    const payments = await wallet.getPaymentList(data_source.address, {per_page: 2});
+    const payments = await wallet.getPaymentList(data_target.address, {per_page: 2});
     expect(payments.length).toBe(2);
-
-    payments.forEach(payment => {
-      expect(typeof payment.timestamp).not.toBe('string');
-    });
   });
 
   it('Get Payment Item', async () => {

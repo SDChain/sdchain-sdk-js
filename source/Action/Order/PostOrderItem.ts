@@ -7,7 +7,7 @@ export interface Order extends OrderItem {
   sequence: number;
 }
 
-export interface Response {
+export interface RawResponse {
   order: Order;
   hash: string;
   ledger: string;
@@ -32,10 +32,10 @@ export interface Options {
 class PostOrderItem extends Base {
   protected path: string = `accounts/orders/{address}`;
 
-  async fetch(options: Options): Promise<Response> {
+  async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.transform);
-    return await service.fetch<Response>(url, {
+    return await service.fetch<RawResponse>(url, {
       method: 'POST',
       body: JSON.stringify(options.body)
     });

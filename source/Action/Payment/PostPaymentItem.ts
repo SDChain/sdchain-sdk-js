@@ -1,7 +1,7 @@
 import MemoItem from '../../Type/MemoItem';
 import Base from '../Base';
 
-export interface Response {
+export interface RawResponse {
   hash: string;
   status_url: string;
   success: boolean;
@@ -29,10 +29,10 @@ export interface Options {
 class PostPaymentItem extends Base {
   protected path: string = `accounts/payments/{source_address}`;
 
-  async fetch(options: Options): Promise<Response> {
+  async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.transform, options.query);
-    return await service.fetch<Response>(url, {
+    return await service.fetch<RawResponse>(url, {
       method: 'POST',
       body: JSON.stringify(options.body)
     });

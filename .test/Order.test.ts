@@ -29,8 +29,8 @@ describe('Test Order API: ', () => {
   it('Get Order Item', async () => {
     const options = {
       transform: {
-        address: data_target.address,
-        hash: data_target.order.hash
+        address: data_source.address,
+        hash: data_source.hash.order
       }
     };
 
@@ -41,7 +41,7 @@ describe('Test Order API: ', () => {
   });
 
   it('Get Order Item', async () => {
-    const result = await wallet.getOrderInfo(data_target.address, data_target.order.hash);
+    const result = await wallet.getOrderInfo(data_source.address, data_source.hash.order);
     expect(result.validated).toBe(true);
     expect(result.hash).not.toBe('');
   });

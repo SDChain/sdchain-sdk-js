@@ -5,6 +5,8 @@ import PostOrderItem from './Action/Order/PostOrderItem';
 import GetPaymentItem from './Action/Payment/GetPaymentItem';
 import GetPaymentList from './Action/Payment/GetPaymentList';
 import PostPaymentItem from './Action/Payment/PostPaymentItem';
+import GetTransactionItem from './Action/Transaction/GetTransactionItem';
+import GetTransactionList from './Action/Transaction/GetTransactionList';
 import GetNewWallet from './Action/Wallet/GetNewWallet';
 import GetWalletBalance from './Action/Wallet/GetWalletBalance';
 import Amount from './Type/Amount';
@@ -80,10 +82,25 @@ class Wallet {
     return data.payments;
   }
 
-  static getTransactionInfo(address: string, hash: string) {
+  async getTransactionInfo(address: string, hash: string) {
+    const options = {
+      transform: {
+        address,
+        hash
+      }
+    };
+
+    const result = await new GetTransactionItem(this.service).fetch(options);
+    return result.transaction;
   }
 
-  static getTransactionList(address: string, opts: object) {
+  async getTransactionList(address: string, query: object) {
+    const options = {
+      transform: {address},
+      query
+    };
+    const result = await new GetTransactionList(this.service).fetch(options);
+    return result.transactions;
   }
 
   async newWallet() {

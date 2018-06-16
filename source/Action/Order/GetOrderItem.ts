@@ -17,7 +17,7 @@ export interface OrderChange {
   status: string;
 }
 
-export interface Response {
+export interface RawResponse {
   hash: string;
   ledger: string;
   validated: boolean;
@@ -44,10 +44,10 @@ export interface Options {
 class GetOrderItem extends Base {
   protected path: string = `accounts/orders/{address}/{hash}`;
 
-  async fetch(options: Options): Promise<Response> {
+  async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.transform);
-    return await service.fetch<Response>(url);
+    return await service.fetch<RawResponse>(url);
   }
 
 }
