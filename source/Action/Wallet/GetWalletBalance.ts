@@ -7,12 +7,12 @@ export interface Response {
   success: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
 }
 
 export interface Options {
-  transform: Transform;
+  placeholder: Placeholder;
 }
 
 class GetWalletBalance extends Base {
@@ -20,7 +20,7 @@ class GetWalletBalance extends Base {
 
   async fetch(options: Options): Promise<Response> {
     const service = this.service;
-    const url = service.getUrl(this.path, options.transform);
+    const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<Response>(url);
   }
 

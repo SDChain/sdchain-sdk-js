@@ -6,13 +6,13 @@ export interface Response {
   transaction: TransactionItem;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
   hash: string;
 }
 
 export interface Options {
-  transform: Transform;
+  placeholder: Placeholder;
 }
 
 class GetTransactionItem extends Base {
@@ -20,7 +20,7 @@ class GetTransactionItem extends Base {
 
   async fetch(options: Options): Promise<Response> {
     const service = this.service;
-    const url = service.getUrl(this.path, options.transform);
+    const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<Response>(url);
   }
 

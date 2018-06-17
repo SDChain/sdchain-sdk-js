@@ -22,7 +22,7 @@ export interface RawResponse {
   validated: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   base: string;
   counter: string;
 }
@@ -32,8 +32,8 @@ export interface Query {
 }
 
 export interface Options {
+  placeholder: Placeholder;
   query?: Query;
-  transform: Transform;
 }
 
 class GetOrderBook extends Base {
@@ -43,7 +43,7 @@ class GetOrderBook extends Base {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
-    const url = service.getUrl(this.path, targetOptions.transform);
+    const url = service.getUrl(this.path, targetOptions.placeholder);
     return await service.fetch<RawResponse>(url);
   }
 

@@ -25,7 +25,7 @@ class Wallet {
 
   async deleteOrder(secret: string, address: string, sequence: number) {
     const options = {
-      transform: {
+      placeholder: {
         address,
         sequence
       },
@@ -36,14 +36,14 @@ class Wallet {
   }
 
   async getBalance(address: string) {
-    const options = {transform: {address}};
+    const options = {placeholder: {address}};
     const result = await new GetWalletBalance(this.service).fetch(options);
     return result.balances;
   }
 
   async getOrderInfo(address: string, hash: string) {
     const options = {
-      transform: {
+      placeholder: {
         address,
         hash
       }
@@ -54,7 +54,7 @@ class Wallet {
 
   async getOrderList(address: string) {
     const options = {
-      transform: {address}
+      placeholder: {address}
     };
 
     const result = await new GetOrderList(this.service).fetch(options);
@@ -63,7 +63,7 @@ class Wallet {
 
   async getPaymentInfo(address: string, hash: string) {
     const options = {
-      transform: {
+      placeholder: {
         address,
         hash
       }
@@ -74,7 +74,7 @@ class Wallet {
 
   async getPaymentList(address: string, query: object) {
     const options = {
-      transform: {address},
+      placeholder: {address},
       query
     };
 
@@ -84,7 +84,7 @@ class Wallet {
 
   async getTransactionInfo(address: string, hash: string) {
     const options = {
-      transform: {
+      placeholder: {
         address,
         hash
       }
@@ -96,7 +96,7 @@ class Wallet {
 
   async getTransactionList(address: string, query: object) {
     const options = {
-      transform: {address},
+      placeholder: {address},
       query
     };
     const result = await new GetTransactionList(this.service).fetch(options);
@@ -115,7 +115,7 @@ class Wallet {
     };
 
     const options = {
-      transform: {address},
+      placeholder: {address},
       body: {
         secret,
         order: {
@@ -144,7 +144,7 @@ class Wallet {
   async submitPayment(secret: string, sourceAddress: string, destAddress: string, amount: string, memo?: MemoItem) {
     const memos = (memo) ? [memo] : [];
     const options = {
-      transform: {source_address: sourceAddress},
+      placeholder: {source_address: sourceAddress},
       query: {submit: true},
       body: {
         secret,

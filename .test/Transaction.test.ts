@@ -9,7 +9,7 @@ describe('Test Transaction API:', () => {
 
   it('Get Transaction List', async () => {
     const options = {
-      transform: {address: data_source.address},
+      placeholder: {address: data_source.address},
       query: {per_page: 2}
     };
 
@@ -26,7 +26,7 @@ describe('Test Transaction API:', () => {
 
   it('Get Transaction Item', async () => {
     const options = {
-      transform: {
+      placeholder: {
         address: data_source.address,
         hash: data_source.hash.transaction
       }

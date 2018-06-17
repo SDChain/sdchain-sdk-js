@@ -11,7 +11,7 @@ describe('Test Order API: ', () => {
 
   it('Get Order List', async () => {
     const options = {
-      transform: {address: data_source.address},
+      placeholder: {address: data_source.address},
       query: {limit: 2}
     };
 
@@ -28,7 +28,7 @@ describe('Test Order API: ', () => {
 
   it('Get Order Item', async () => {
     const options = {
-      transform: {
+      placeholder: {
         address: data_source.address,
         hash: data_source.hash.order
       }
@@ -48,7 +48,7 @@ describe('Test Order API: ', () => {
 
   xit('Post Order Item', async () => {
     const options = {
-      transform: {address: data_source.address},
+      placeholder: {address: data_source.address},
       body: {
         secret: data_source.secret,
         order: {
@@ -91,7 +91,7 @@ describe('Test Order API: ', () => {
 
   xit('Delete Order Item', async () => {
     const options = {
-      transform: {
+      placeholder: {
         address: data_target.address,
         sequence: 5
       },

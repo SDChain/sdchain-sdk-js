@@ -6,7 +6,7 @@ export interface RawResponse {
   success: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
 }
 
@@ -21,8 +21,8 @@ export interface Query {
 }
 
 export interface Options {
+  placeholder: Placeholder;
   query?: Query;
-  transform: Transform;
 }
 
 class GetPaymentList extends Base {
@@ -32,7 +32,7 @@ class GetPaymentList extends Base {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
-    const url = service.getUrl(this.path, targetOptions.transform, targetOptions.query);
+    const url = service.getUrl(this.path, targetOptions.placeholder, targetOptions.query);
     return await service.fetch<RawResponse>(url);
   }
 

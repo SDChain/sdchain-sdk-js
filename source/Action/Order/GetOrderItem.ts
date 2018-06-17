@@ -32,13 +32,13 @@ export interface RawResponse {
   validated: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
   hash: string;
 }
 
 export interface Options {
-  transform: Transform;
+  placeholder: Placeholder;
 }
 
 class GetOrderItem extends Base {
@@ -46,7 +46,7 @@ class GetOrderItem extends Base {
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
-    const url = service.getUrl(this.path, options.transform);
+    const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url);
   }
 

@@ -9,13 +9,13 @@ export interface RawResponse extends PaymentItem {
   success: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
   hash: string;
 }
 
 export interface Options {
-  transform: Transform;
+  placeholder: Placeholder;
 }
 
 class GetPaymentItem extends Base {
@@ -23,7 +23,7 @@ class GetPaymentItem extends Base {
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
-    const url = service.getUrl(this.path, options.transform);
+    const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url);
   }
 

@@ -44,7 +44,7 @@ describe('Test Server API', () => {
 
   it('Get Order Book', async () => {
     const options = {
-      transform: {
+      placeholder: {
         base: 'SDA',
         counter: 'SLC+6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq'
       } // query: {limit: 2}

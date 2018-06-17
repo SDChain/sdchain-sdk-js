@@ -22,7 +22,7 @@ describe('Test Wallet API', () => {
   });
 
   it('Get Wallet Balance', async () => {
-    const options = {transform: {address: data_source.address}};
+    const options = {placeholder: {address: data_source.address}};
     const result = await new GetWalletBalance(online).fetch(options);
     expect(result.balances.length).not.toBe(0);
   });

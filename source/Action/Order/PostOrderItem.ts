@@ -15,7 +15,7 @@ export interface RawResponse {
   success: boolean;
 }
 
-export interface Transform {
+export interface Placeholder {
   address: string;
 }
 
@@ -26,7 +26,7 @@ export interface Body {
 
 export interface Options {
   body: Body;
-  transform: Transform;
+  placeholder: Placeholder;
 }
 
 class PostOrderItem extends Base {
@@ -34,7 +34,7 @@ class PostOrderItem extends Base {
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
-    const url = service.getUrl(this.path, options.transform);
+    const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url, {
       method: 'POST',
       body: JSON.stringify(options.body)
