@@ -1,8 +1,8 @@
 import Base from '../Base';
 
 export interface Response {
-  wallet: { address: string; secret: string; };
   success: boolean;
+  wallet: { address: string; secret: string; };
 }
 
 class GetNewWallet extends Base {

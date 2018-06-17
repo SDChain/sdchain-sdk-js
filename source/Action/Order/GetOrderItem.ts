@@ -4,32 +4,32 @@ import Base from '../Base';
 
 export interface Order extends OrderItem {
   account: string;
-  passive: boolean;
-  immediate_or_cancel: boolean;
   fill_or_kill: boolean;
+  immediate_or_cancel: boolean;
+  passive: boolean;
   sequence: number;
 }
 
 export interface OrderChange {
-  taker_pays: Amount;
-  taker_gets: Amount;
   sequence: number;
   status: string;
+  taker_gets: Amount;
+  taker_pays: Amount;
 }
 
 export interface RawResponse {
+  action: string;
+  balance_changes: Amount[];
+  direction: string;
+  fee: string;
   hash: string;
   ledger: string;
-  validated: boolean;
-  timestamp: string;
-  fee: string;
-  action: string;
-  type: string;
-  direction: string;
   order: Order;
-  balance_changes: Amount[];
   order_changes: OrderChange[];
   success: boolean;
+  timestamp: string;
+  type: string;
+  validated: boolean;
 }
 
 export interface Transform {

@@ -8,9 +8,9 @@ export interface Order extends OrderItem {
 }
 
 export interface RawResponse {
-  order: Order;
   hash: string;
   ledger: string;
+  order: Order;
   state: string;
   success: boolean;
 }
@@ -20,8 +20,8 @@ export interface Transform {
 }
 
 export interface Body {
-  secret: string;
   order: OrderItem;
+  secret: string;
 }
 
 export interface Options {

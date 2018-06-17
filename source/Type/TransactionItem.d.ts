@@ -1,32 +1,32 @@
 export interface Amount {
   currency: string;
-  value: string;
   issuer: string;
+  value: string;
 }
 
 export interface Effect {
-  effect: string;
-  type: string;
-  seq: number;
-  price: string;
-  pair: string;
   amount: Amount;
+  effect: string;
+  pair: string;
+  price: string;
+  seq: number;
+  type: string;
 }
 
 interface TransactionItem {
+  amount: Amount;
+  date: string;
+  effects: Effect[];
+  fee: string;
   hash: string;
   ledger: string;
-  state: string;
-  date: string;
-  type: string;
-  fee: string;
-  result: string;
-  price: string;
-  pair: string;
-  amount: Amount;
-  seq: number;
   offertype: string;
-  effects: Effect[];
+  pair: string;
+  price: string;
+  result: string;
+  seq: number;
+  state: string;
+  type: string;
 }
 
 export default TransactionItem;

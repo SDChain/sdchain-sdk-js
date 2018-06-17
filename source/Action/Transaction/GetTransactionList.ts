@@ -2,8 +2,8 @@ import TransactionItem from '../../Type/TransactionItem';
 import Base from '../Base';
 
 export interface Response {
-  transactions: TransactionItem[];
   success: boolean;
+  transactions: TransactionItem[];
 }
 
 export interface Transform {
@@ -11,11 +11,11 @@ export interface Transform {
 }
 
 export interface Query {
-  type?: string;
-  start_ledger?: number;
   end_ledger?: number;
-  per_page?: number;
   page?: number;
+  per_page?: number;
+  start_ledger?: number;
+  type?: string;
 }
 
 export interface Options {

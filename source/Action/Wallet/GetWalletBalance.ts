@@ -2,8 +2,8 @@ import Amount from '../../Type/Amount';
 import Base from '../Base';
 
 export interface Response {
-  ledger: number;
   balances: Amount[];
+  ledger: number;
   success: boolean;
 }
 

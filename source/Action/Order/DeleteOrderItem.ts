@@ -8,9 +8,9 @@ export interface Order {
 }
 
 export interface RawResponse {
-  order: Order;
   hash: string;
   ledger: string;
+  order: Order;
   state: string;
   success: boolean;
 }

@@ -2,8 +2,8 @@ import TransactionItem from '../../Type/TransactionItem';
 import Base from '../Base';
 
 export interface Response {
-  transaction: TransactionItem;
   success: boolean;
+  transaction: TransactionItem;
 }
 
 export interface Transform {
