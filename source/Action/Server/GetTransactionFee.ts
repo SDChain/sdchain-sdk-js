@@ -6,12 +6,12 @@ export interface RawResponse {
 }
 
 class GetTransactionFee extends Base {
-  protected path: string = 'transaction-fee';
+  protected readonly path: string = '/transaction-fee';
 
   async fetch(): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

@@ -1,4 +1,5 @@
 import {RequestInit} from 'node-fetch';
+import Handler from '../Handler';
 
 export interface Mapper {
   [index: string]: any;
@@ -7,6 +8,7 @@ export interface Mapper {
 interface ServiceInterface {
   readonly url: string;
   readonly version: string;
+  readonly handler: Handler;
 
   fetch<T>(url: string, init?: RequestInit): Promise<T>;
 

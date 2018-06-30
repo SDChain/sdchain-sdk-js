@@ -16,12 +16,12 @@ export interface Options {
 }
 
 class GetTransactionItem extends Base {
-  protected path: string = `accounts/transactions/{address}/{hash}`;
+  protected readonly path: string = `/accounts/transactions/{address}/{hash}`;
 
   async fetch(options: Options): Promise<Response> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder);
-    return await service.fetch<Response>(url);
+    return await service.fetch<Response>(url, {method: this.method.toUpperCase()});
   }
 
 }

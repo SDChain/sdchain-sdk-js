@@ -23,8 +23,18 @@ describe('Test Wallet API', () => {
 
   it('Get Wallet Balance', async () => {
     const options = {placeholder: {address: data_source.address}};
-    const result = await new GetWalletBalance(online).fetch(options);
-    expect(result.balances.length).not.toBe(0);
+    const item = new GetWalletBalance(online);
+
+    const response = await item.fetch(options);
+    expect(response.balances.length).not.toBe(0);
+
+    const test = await item.validateResponse(response);
+    expect(test.errors.length).toBe(0);
+
+    // const test1 = await item.validateResponse({});
+    // console.dir(test1, {depth: null});
+    // console.dir(test1.humanReadable());
+
   });
 
   it('Get Wallet Balance', async () => {

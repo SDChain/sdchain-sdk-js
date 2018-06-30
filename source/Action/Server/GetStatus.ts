@@ -8,12 +8,12 @@ export interface RawResponse {
 }
 
 class Status extends Base {
-  protected path: string = 'server';
+  protected readonly path: string = '/server';
 
   async fetch(): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

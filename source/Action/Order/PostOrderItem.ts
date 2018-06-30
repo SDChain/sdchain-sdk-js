@@ -1,3 +1,4 @@
+import {Method} from '../../Handler';
 import OrderItem from '../../Type/OrderItem';
 import Base from '../Base';
 
@@ -30,13 +31,14 @@ export interface Options {
 }
 
 class PostOrderItem extends Base {
-  protected path: string = `accounts/orders/{address}`;
+  protected readonly path: string = `/accounts/orders/{address}`;
+  protected readonly method: Method = 'post';
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url, {
-      method: 'POST',
+      method: this.method.toUpperCase(),
       body: JSON.stringify(options.body)
     });
   }

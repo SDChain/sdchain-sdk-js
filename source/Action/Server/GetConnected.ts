@@ -6,12 +6,12 @@ export interface RawResponse {
 }
 
 class GetConnected extends Base {
-  protected path: string = 'server/connected';
+  protected readonly path: string = '/server/connected';
 
   async fetch(): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

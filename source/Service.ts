@@ -1,5 +1,6 @@
 import fetch, {RequestInit} from 'node-fetch';
 import URI from 'urijs';
+import Handler from './Handler';
 import ErrorResponse from './Type/ErrorResponse';
 import ServiceInterface, {Mapper} from './Type/ServiceInterface';
 
@@ -9,6 +10,7 @@ require('urijs/src/URITemplate');
 class Service implements ServiceInterface {
   readonly url: string;
   readonly version: string;
+  readonly handler: Handler = new Handler(__dirname + '/swagger20-with-extensions.json');
 
   constructor(url: string, version: string) {
     this.url = url;
@@ -36,7 +38,7 @@ class Service implements ServiceInterface {
   }
 
   getUrl(path: string = '', transform: Mapper = {}, query: Mapper = {}) {
-    const template = `${this.url}/${this.version}/${path}`;
+    const template = `${this.url}/${this.version}${path}`;
     return URI.expand(template, transform).setQuery(query).normalize().valueOf();
   }
 

@@ -1,3 +1,4 @@
+import {Method} from '../../Handler';
 import MemoItem from '../../Type/MemoItem';
 import Base from '../Base';
 
@@ -27,13 +28,14 @@ export interface Options {
 }
 
 class PostPaymentItem extends Base {
-  protected path: string = `accounts/payments/{source_address}`;
+  protected readonly path: string = `/accounts/payments/{source_address}`;
+  protected readonly method: Method = 'post';
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder, options.query);
     return await service.fetch<RawResponse>(url, {
-      method: 'POST',
+      method: this.method.toUpperCase(),
       body: JSON.stringify(options.body)
     });
   }

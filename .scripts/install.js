@@ -9,6 +9,8 @@ const script = () => {
     process.exit(1);
   }
 
+  require('./model');
+
   if (false === Shell.run('tsc')) {
     process.exit(1);
   }

@@ -42,12 +42,12 @@ export interface Options {
 }
 
 class GetOrderItem extends Base {
-  protected path: string = `accounts/orders/{address}/{hash}`;
+  protected readonly path: string = `/accounts/orders/{address}/{hash}`;
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

@@ -1,0 +1,403 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "No description",
+    "version" : "1.2.2",
+    "title" : "SD-Cable",
+    "contact" : { }
+  },
+  "host" : "rest-beta.sdchain.io",
+  "basePath" : "/v1",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/wallet/new" : {
+      "get" : {
+        "summary" : "获取新钱包",
+        "description" : "注：新获取的钱包为未激活。激活方式：使用支付接口从已激活账户中向新账户转账6个SDA。",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetNewWalletRawResponse"
+            },
+            "examples" : {
+              "application/json" : "{\n    \"wallet\": {\n        \"address\": \"6LnP38XJEW9HQirRruYoopWrZfJWy57AmR\",\n        \"secret\": \"ssG6J35911ofTwGr9shNDJ7K2iFnV\"\n    },\n    \"success\": true\n}"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Wallet"
+      }
+    },
+    "/accounts/balances/{address}" : {
+      "get" : {
+        "summary" : "获得账户余额",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetWalletBalanceRawReponse"
+            },
+            "examples" : {
+              "application/json" : "{\n    \"ledger\": 1685155,\n    \"balances\": [\n        {\n            \"value\": \"25.86918\",\n            \"currency\": \"SDA\",\n            \"counterparty\": \"\"\n        }\n    ],\n    \"success\": true\n}"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址",
+        "pattern" : "^6",
+        "x-example" : "6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5"
+      } ],
+      "x-restlet" : {
+        "section" : "Wallet"
+      }
+    },
+    "/accounts/payments/{source_address}" : {
+      "get" : {
+        "summary" : "获得支付历史",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "支付请求",
+        "consumes" : [ ],
+        "parameters" : [ {
+          "name" : "submit",
+          "in" : "query",
+          "required" : true,
+          "type" : "boolean"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PostPaymentItemRequestBody"
+          },
+          "x-examples" : {
+            "application/json" : "{\n    \"secret\": \"saNYbpu4*************3Hhg8kRu\",\n    \"payment\": {\n        \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n        \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n        \"amount\": \"20\",\n        \"memos\": [\n            {\n                \"MemoType\": \"memos\",\n                \"MemoData\": \"memos\"\n            }\n        ]\n    }\n}"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PostPaymentItemRawResponse"
+            },
+            "examples" : {
+              "application/json" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"status_url\": \"https://rest-beta.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5/12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"success\": true\n}"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "source_address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "支付方的六域链地址",
+        "pattern" : "^6",
+        "x-example" : "6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5"
+      } ],
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    },
+    "/accounts/payments/{address}/{hash}" : {
+      "get" : {
+        "summary" : "获得支付信息",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetPaymentItemRawResponse"
+            },
+            "examples" : {
+              "application/json" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"ledger\": \"86520\",\n    \"state\": \"validated\",\n    \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n    \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n    \"amount\": {\n        \"currency\": \"SDA\",\n        \"value\": \"20\",\n        \"issuer\": \"\"\n    },\n    \"currency\": \"SDA\",\n    \"issuer\": \"\",\n    \"direction\": \"outgoing\",\n    \"timestamp\": \"2018-03-06 08:15:42\",\n    \"fee\": \"0.000012\",\n    \"memos\": [\n        {\n            \"memo_type\": \"6D656D6F73\",\n            \"memo_data\": \"E7ACACE4B880E7AC94E4BAA4E69893\"\n        }\n    ],\n    \"success\": true\n}"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址",
+        "pattern" : "^6",
+        "x-example" : "6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5"
+      }, {
+        "name" : "hash",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "交易hash",
+        "x-example" : "12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E"
+      } ],
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    }
+  },
+  "definitions" : {
+    "example_enum" : {
+      "type" : "string",
+      "enum" : [ "example" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "Address" : {
+      "type" : "string",
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "Secret" : {
+      "type" : "string",
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "Amount" : {
+      "type" : "object",
+      "required" : [ "counterparty", "currency", "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "counterparty" : {
+          "type" : "string"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "PaymentAmount" : {
+      "type" : "object",
+      "required" : [ "currency", "issuer", "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "issuer" : {
+          "type" : "string"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "MemoItem" : {
+      "type" : "object",
+      "required" : [ "memo_data", "memo_type" ],
+      "properties" : {
+        "memo_type" : {
+          "type" : "string",
+          "description" : "备注类型"
+        },
+        "memo_data" : {
+          "type" : "string",
+          "description" : "备注内容"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "GetNewWalletRawResponse" : {
+      "type" : "object",
+      "required" : [ "success", "wallet" ],
+      "properties" : {
+        "success" : {
+          "type" : "boolean"
+        },
+        "wallet" : {
+          "required" : [ "address", "secret" ],
+          "type" : "object",
+          "description" : "钱包",
+          "properties" : {
+            "address" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "secret" : {
+              "$ref" : "#/definitions/Secret"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Wallet"
+      }
+    },
+    "GetWalletBalanceRawReponse" : {
+      "type" : "object",
+      "required" : [ "balances", "ledger", "success" ],
+      "properties" : {
+        "success" : {
+          "type" : "boolean"
+        },
+        "ledger" : {
+          "type" : "number"
+        },
+        "balances" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Amount"
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Wallet"
+      }
+    },
+    "PostPaymentItemRequestBody" : {
+      "type" : "object",
+      "required" : [ "payment", "secret" ],
+      "properties" : {
+        "secret" : {
+          "$ref" : "#/definitions/Secret"
+        },
+        "payment" : {
+          "required" : [ "amount", "source_account" ],
+          "type" : "object",
+          "description" : "支付对象",
+          "properties" : {
+            "source_account" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "destination_account" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "amount" : {
+              "type" : "string",
+              "description" : "交易金额"
+            },
+            "memos" : {
+              "type" : "array",
+              "description" : "支付的备注",
+              "items" : {
+                "$ref" : "#/definitions/MemoItem"
+              }
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    },
+    "PostPaymentItemRawResponse" : {
+      "type" : "object",
+      "required" : [ "hash", "status_url", "success" ],
+      "properties" : {
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        },
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "status_url" : {
+          "type" : "string",
+          "description" : "查看交易状态的地址"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    },
+    "GetPaymentItemRawResponse" : {
+      "type" : "object",
+      "required" : [ "amount", "currency", "direction", "fee", "hash", "issuer", "ledger", "memos", "source_account", "state", "success", "timestamp" ],
+      "properties" : {
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "state" : {
+          "type" : "string",
+          "description" : "状态",
+          "enum" : [ "validated", "pending" ]
+        },
+        "source_account" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "destination_account" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "amount" : {
+          "$ref" : "#/definitions/PaymentAmount"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "issuer" : {
+          "type" : "string"
+        },
+        "direction" : {
+          "type" : "string",
+          "description" : "交易类型"
+        },
+        "timestamp" : {
+          "type" : "string",
+          "description" : "交易时间"
+        },
+        "fee" : {
+          "type" : "string",
+          "description" : "费率"
+        },
+        "memos" : {
+          "type" : "array",
+          "description" : "支付的备注",
+          "items" : {
+            "$ref" : "#/definitions/MemoItem"
+          }
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    }
+  },
+  "x-restlet" : {
+    "sections" : {
+      "Type" : { },
+      "Wallet" : { },
+      "Payment" : { }
+    }
+  }
+}

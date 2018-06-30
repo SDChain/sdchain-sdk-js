@@ -19,12 +19,12 @@ export interface Options {
 }
 
 class GetPaymentItem extends Base {
-  protected path: string = `accounts/payments/{address}/{hash}`;
+  protected readonly path: string = `/accounts/payments/{address}/{hash}`;
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

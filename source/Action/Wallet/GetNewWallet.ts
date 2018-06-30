@@ -6,12 +6,12 @@ export interface Response {
 }
 
 class GetNewWallet extends Base {
-  protected path: string = `wallet/new`;
+  protected readonly path: string = `/wallet/new`;
 
   async fetch(): Promise<Response> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<Response>(url);
+    return await service.fetch<Response>(url, {method: this.method.toUpperCase()});
   }
 
 }

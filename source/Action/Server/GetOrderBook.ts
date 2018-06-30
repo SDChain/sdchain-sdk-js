@@ -37,14 +37,14 @@ export interface Options {
 }
 
 class GetOrderBook extends Base {
-  protected path: string = `order_book/{base}/{counter}`;
+  protected readonly path: string = `/order_book/{base}/{counter}`;
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     const url = service.getUrl(this.path, targetOptions.placeholder);
-    return await service.fetch<RawResponse>(url);
+    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
 
 }

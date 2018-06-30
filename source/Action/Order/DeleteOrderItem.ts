@@ -1,3 +1,4 @@
+import {Method} from '../../Handler';
 import Base from '../Base';
 
 export interface Order {
@@ -30,13 +31,14 @@ export interface Options {
 }
 
 class DeleteOrderItem extends Base {
-  protected path: string = `accounts/orders/{address}/{sequence}`;
+  protected readonly path: string = `/accounts/orders/{address}/{sequence}`;
+  protected readonly method: Method = 'delete';
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
     const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url, {
-      method: 'DELETE',
+      method: this.method.toUpperCase(),
       body: JSON.stringify(options.body)
     });
   }
