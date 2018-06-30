@@ -44,7 +44,7 @@ describe('Payment API', () => {
 
   xit('Post Payment Item', async () => {
     const options = {
-      placeholder: {source_address: data_source.address},
+      placeholder: {address: data_source.address},
       query: {submit: false},
       body: {
         secret: data_source.secret,

@@ -9,7 +9,7 @@ export interface RawResponse {
 }
 
 export interface Placeholder {
-  source_address: string;
+  address: string;
 }
 
 export interface Query {
@@ -28,7 +28,7 @@ export interface Options {
 }
 
 class PostPaymentItem extends Base {
-  protected readonly path: string = `/accounts/payments/{source_address}`;
+  protected readonly path: string = `/accounts/payments/{address}`;
   protected readonly method: Method = 'post';
 
   async fetch(options: Options): Promise<RawResponse> {

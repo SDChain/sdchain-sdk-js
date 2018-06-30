@@ -144,7 +144,7 @@ class Wallet {
   async submitPayment(secret: string, sourceAddress: string, destAddress: string, amount: string, memo?: MemoItem) {
     const memos = (memo) ? [memo] : [];
     const options = {
-      placeholder: {source_address: sourceAddress},
+      placeholder: {address: sourceAddress},
       query: {submit: true},
       body: {
         secret,
