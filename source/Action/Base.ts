@@ -16,10 +16,11 @@ abstract class Base {
   }
 
   // noinspection JSMethodCanBeStatic
-  async validateResponse(body: any) {
+  async validateResponseBody(test: any) {
     const handler = this.service.handler;
-    const schema = await handler.getResponseSchema(this.path, this.method);
-    return await handler.validateModel(body, schema);
+    const body = await handler.getResponseBody(this.path, this.method);
+    const schema = body ? body : '';
+    return await handler.validateModel(test, schema);
   }
 
   abstract async fetch(options?: object): Promise<object>;

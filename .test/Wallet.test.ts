@@ -28,7 +28,7 @@ describe('Test Wallet API', () => {
     const response = await item.fetch(options);
     expect(response.balances.length).not.toBe(0);
 
-    const test = await item.validateResponse(response);
+    const test = await item.validateResponseBody(response);
     expect(test.errors.length).toBe(0);
 
     // const test1 = await item.validateResponse({});

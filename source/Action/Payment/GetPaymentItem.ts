@@ -3,6 +3,7 @@ import PaymentItem from '../../Type/PaymentItem';
 import Base from '../Base';
 
 export interface RawResponse extends PaymentItem {
+  currency: string;
   issuer: string;
   memos: MemoItem[];
   state: string;
