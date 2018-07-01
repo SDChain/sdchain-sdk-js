@@ -27,7 +27,7 @@ class Wallet {
     const options = {
       placeholder: {
         address,
-        sequence
+        hash: sequence
       },
       body: {secret}
     };

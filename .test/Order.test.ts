@@ -94,7 +94,7 @@ describe('Test Order API: ', () => {
     const options = {
       placeholder: {
         address: data_target.address,
-        sequence: 5
+        hash: 5
       },
       body: {
         secret: data_target.secret

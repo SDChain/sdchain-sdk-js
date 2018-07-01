@@ -18,7 +18,7 @@ export interface RawResponse {
 
 export interface Placeholder {
   address: string;
-  sequence: number;
+  hash: number;
 }
 
 export interface Body {
@@ -31,7 +31,7 @@ export interface Options {
 }
 
 class DeleteOrderItem extends Base {
-  protected readonly path: string = `/accounts/orders/{address}/{sequence}`;
+  protected readonly path: string = `/accounts/orders/{address}/{hash}`;
   protected readonly method: Method = 'delete';
 
   async fetch(options: Options): Promise<RawResponse> {
