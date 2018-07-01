@@ -64,8 +64,8 @@ class Handler extends Base {
   }
 
   async validatePlaceholder(test: any, path: string) {
-    const placeholder = await this.getPlaceholder(path);
-    const schema = placeholder ? placeholder : '';
+    const item = await this.getPlaceholder(path);
+    const schema = item ? item : '';
     return await this.validateModel(test, schema);
   }
 
@@ -100,8 +100,23 @@ class Handler extends Base {
   }
 
   async validateRequestQuery(test: any, path: string, method: Method = 'get') {
-    const query = await this.getRequestQuery(path, method);
-    const schema = query ? query : '';
+    const item = await this.getRequestQuery(path, method);
+    const schema = item ? item : '';
+    return await this.validateModel(test, schema);
+  }
+
+  async getRequestBody(path: string, method: Method = 'get'): Promise<Schema | undefined> {
+    const item = await this.getOperation(path, method);
+    console.dir(item, {depth: null});
+
+    if (item) {
+      return this.getParameterSchema(<Parameter[]>item.parameters, 'body');
+    }
+  }
+
+  async validateRequestBody(test: any, path: string, method: Method = 'get') {
+    const item = await this.getRequestBody(path, method);
+    const schema = item ? item : '';
     return await this.validateModel(test, schema);
   }
 

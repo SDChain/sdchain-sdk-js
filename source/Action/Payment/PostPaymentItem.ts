@@ -35,6 +35,7 @@ class PostPaymentItem extends Base {
     const service = this.service;
     await this.validatePlaceholder(options.placeholder);
     await this.validateRequestQuery(options.query);
+    await this.validateRequestBody(options.body);
     const url = service.getUrl(this.path, options.placeholder, options.query);
     return await service.fetch<RawResponse>(url, {
       method: this.method.toUpperCase(),
