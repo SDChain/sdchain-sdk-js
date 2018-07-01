@@ -17,10 +17,7 @@ abstract class Base {
 
   // noinspection JSMethodCanBeStatic
   async validateResponseBody(test: any) {
-    const handler = this.service.handler;
-    const body = await handler.getResponseBody(this.path, this.method);
-    const schema = body ? body : '';
-    return await handler.validateModel(test, schema);
+    return await this.service.handler.validateResponseBody(test, this.path, this.method);
   }
 
   async validatePlaceholder(test: any) {

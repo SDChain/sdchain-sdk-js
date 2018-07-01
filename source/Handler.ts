@@ -14,6 +14,16 @@ class Handler extends Base {
     return this.specification;
   }
 
+  async getDefinition(name: string): Promise<Schema | undefined> {
+    const specification = await this.getSpecification();
+    const items = specification.definitions;
+
+    if (items && items.hasOwnProperty(name)) {
+      return items[name];
+    }
+
+  }
+
   async getOperation(path: string, method: Method = 'get'): Promise<Operation | undefined> {
     const specification = await this.getSpecification();
     return specification.paths[path][method];
@@ -36,14 +46,10 @@ class Handler extends Base {
     }
   }
 
-  async getDefinition(name: string): Promise<Schema | undefined> {
-    const specification = await this.getSpecification();
-    const items = specification.definitions;
-
-    if (items && items.hasOwnProperty(name)) {
-      return items[name];
-    }
-
+  async validateResponseBody(test: any, path: string, method: Method = 'get', status: string = '200') {
+    const item = await this.getResponseBody(path, method, status);
+    const schema = item ? item : '';
+    return await this.validateModel(test, schema);
   }
 
   async getPlaceholder(path: string): Promise<Schema | undefined> {
@@ -107,7 +113,6 @@ class Handler extends Base {
 
   async getRequestBody(path: string, method: Method = 'get'): Promise<Schema | undefined> {
     const item = await this.getOperation(path, method);
-    console.dir(item, {depth: null});
 
     if (item) {
       return this.getParameterSchema(<Parameter[]>item.parameters, 'body');
