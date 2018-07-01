@@ -15,9 +15,11 @@ describe('Test Transaction API:', () => {
     };
 
     const item = new GetTransactionList(online);
-    const result = await item.fetch(options);
-    // console.dir(result);
-    expect(result.transactions.length).toBe(2);
+    const response = await item.fetch(options);
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.transactions.length).toBe(2);
   });
 
   it('Get Transaction List', async () => {
@@ -34,9 +36,11 @@ describe('Test Transaction API:', () => {
     };
 
     const item = new GetTransactionItem(online);
-    const result = await item.fetch(options);
-    // console.dir(result);
-    expect(result.transaction.state).toBe(OrderState.validated);
+    const response = await item.fetch(options);
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.transaction.state).toBe(OrderState.validated);
   });
 
   it('Get Transaction Item', async () => {

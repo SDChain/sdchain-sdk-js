@@ -6,7 +6,9 @@
 
 import { OrderState } from './enums';
 import { TransactionType } from './enums';
-import { PaymentAmount } from './payment-amount.model';
+import { TransactionAmount } from './transaction-amount.model';
+import { OrderType } from './enums';
+import { Effect } from './effect.model';
 import { MemoItem } from './memo-item.model';
 
 export interface TransactionItem {
@@ -21,8 +23,9 @@ export interface TransactionItem {
     pair?: string;
     seq?: number;
     counterparty?: string;
-    amount: PaymentAmount;
-    effects: Array<string>;
+    amount: TransactionAmount;
+    offertype: OrderType;
+    effects: Array<Effect>;
     memos?: Array<MemoItem>;
 }
 

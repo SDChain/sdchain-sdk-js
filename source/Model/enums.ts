@@ -10,6 +10,16 @@ export enum example_enum {
     example = <any>"example",
 }
 
+export enum PaymentState {
+    validated = <any>"validated",
+    pending = <any>"pending",
+}
+
+export enum PaymentDirection {
+    incoming = <any>"incoming",
+    outgoing = <any>"outgoing",
+}
+
 export enum OrderType {
     sell = <any>"sell",
     buy = <any>"buy",
@@ -20,25 +30,18 @@ export enum OrderState {
     pending = <any>"pending",
 }
 
-export enum PaymentDirection {
-    incoming = <any>"incoming",
-    outgoing = <any>"outgoing",
-}
-
 export enum TransactionType {
     payment = <any>"payment",
-    offercreate = <any>"offercreate",
-    offercancel = <any>"offercancel",
+    OfferCreate = <any>"OfferCreate",
+    OfferCancel = <any>"OfferCancel",
     trustset = <any>"trustset",
-}
-
-export enum PaymentState {
-    validated = <any>"validated",
-    pending = <any>"pending",
+    offer_create = <any>"offer_create",
+    offer_cancel = <any>"offer_cancel",
 }
 
 export enum server_state {
     syncing = <any>"syncing",
+    proposing = <any>"proposing",
 }
 
 

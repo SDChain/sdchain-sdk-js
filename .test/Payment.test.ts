@@ -6,7 +6,7 @@ import Wallet from '../source/Wallet';
 import {online} from './Setup/Service';
 import {data_source, data_target} from './Setup/Setting';
 
-describe('Payment API', () => {
+describe('Payment API: ', () => {
   const wallet = new Wallet(online);
 
   it('Get Payment List', async () => {
@@ -15,9 +15,12 @@ describe('Payment API', () => {
       query: {per_page: 2}
     };
 
-    const result = await new GetPaymentList(online).fetch(options);
-    // console.dir(result, {depth: null});
-    const {payments} = result;
+    const item = new GetPaymentList(online);
+    const response = await item.fetch(options);
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    const {payments} = response;
     expect(payments.length).toBe(2);
   });
 
@@ -34,8 +37,12 @@ describe('Payment API', () => {
       }
     };
 
-    const result = await new GetPaymentItem(online).fetch(options);
-    expect(result.state).toBe(PaymentState.validated);
+    const item = new GetPaymentItem(online);
+    const response = await item.fetch(options);
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.state).toBe(PaymentState.validated);
   });
 
   it('Get Payment Item', async () => {
@@ -58,8 +65,12 @@ describe('Payment API', () => {
       }
     };
 
-    const result = await new PostPaymentItem(online).fetch(options);
-    expect(result.hash).not.toBe('');
+    const item = new PostPaymentItem(online);
+    const response = await item.fetch(options);
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.hash).not.toBe('');
 
   });
 

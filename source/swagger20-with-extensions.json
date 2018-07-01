@@ -502,6 +502,25 @@
         "section" : "Type"
       }
     },
+    "Wallet" : {
+      "type" : "object",
+      "required" : [ "address", "secret" ],
+      "properties" : {
+        "address" : {
+          "type" : "string",
+          "description" : "六域链钱包地址（公钥）",
+          "pattern" : "^6"
+        },
+        "secret" : {
+          "type" : "string",
+          "description" : "私钥",
+          "pattern" : "^s"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
     "PaymentAmount" : {
       "type" : "object",
       "required" : [ "currency", "issuer", "value" ],
@@ -581,6 +600,20 @@
         "section" : "Type"
       }
     },
+    "PaymentState" : {
+      "type" : "string",
+      "enum" : [ "validated", "pending" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "PaymentDirection" : {
+      "type" : "string",
+      "enum" : [ "incoming", "outgoing" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
     "OrderItem" : {
       "type" : "object",
       "required" : [ "taker_gets", "taker_pays", "type" ],
@@ -610,13 +643,6 @@
     "OrderState" : {
       "type" : "string",
       "enum" : [ "validated", "pending" ],
-      "x-restlet" : {
-        "section" : "Type"
-      }
-    },
-    "PaymentDirection" : {
-      "type" : "string",
-      "enum" : [ "incoming", "outgoing" ],
       "x-restlet" : {
         "section" : "Type"
       }
@@ -659,7 +685,7 @@
     },
     "TransactionItem" : {
       "type" : "object",
-      "required" : [ "amount", "date", "effects", "fee", "hash", "ledger", "result", "state", "type" ],
+      "required" : [ "amount", "date", "effects", "fee", "hash", "ledger", "offertype", "result", "state", "type" ],
       "properties" : {
         "hash" : {
           "type" : "string",
@@ -704,13 +730,16 @@
           "description" : "对方地址(type=payment)"
         },
         "amount" : {
-          "$ref" : "#/definitions/PaymentAmount"
+          "$ref" : "#/definitions/TransactionAmount"
+        },
+        "offertype" : {
+          "$ref" : "#/definitions/OrderType"
         },
         "effects" : {
           "type" : "array",
           "description" : "影响",
           "items" : {
-            "type" : "string"
+            "$ref" : "#/definitions/Effect"
           }
         },
         "memos" : {
@@ -727,31 +756,56 @@
     },
     "TransactionType" : {
       "type" : "string",
-      "enum" : [ "payment", "offercreate", "offercancel", "trustset" ],
+      "enum" : [ "payment", "OfferCreate", "OfferCancel", "trustset", "offer_create", "offer_cancel" ],
       "x-restlet" : {
         "section" : "Type"
       }
     },
-    "PaymentState" : {
-      "type" : "string",
-      "enum" : [ "validated", "pending" ],
-      "x-restlet" : {
-        "section" : "Type"
-      }
-    },
-    "Wallet" : {
+    "TransactionAmount" : {
       "type" : "object",
-      "required" : [ "address", "secret" ],
+      "required" : [ "currency", "value" ],
       "properties" : {
-        "address" : {
-          "type" : "string",
-          "description" : "六域链钱包地址（公钥）",
-          "pattern" : "^6"
+        "value" : {
+          "type" : "string"
         },
-        "secret" : {
-          "type" : "string",
-          "description" : "私钥",
-          "pattern" : "^s"
+        "currency" : {
+          "type" : "string"
+        },
+        "issuer" : {
+          "type" : "string"
+        },
+        "counterparty" : {
+          "type" : "string"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "Effect" : {
+      "type" : "object",
+      "required" : [ "amount", "effect", "type" ],
+      "properties" : {
+        "effect" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/OrderType"
+        },
+        "seq" : {
+          "type" : "integer"
+        },
+        "price" : {
+          "type" : "string"
+        },
+        "pair" : {
+          "type" : "string"
+        },
+        "counterparty" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "$ref" : "#/definitions/TransactionAmount"
         }
       },
       "x-restlet" : {
@@ -972,7 +1026,7 @@
             "server_state" : {
               "type" : "string",
               "description" : "服务器状况",
-              "enum" : [ "syncing" ]
+              "enum" : [ "syncing", "proposing" ]
             },
             "reserve_base_sda" : {
               "type" : "number",

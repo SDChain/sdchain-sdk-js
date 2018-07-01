@@ -4,13 +4,17 @@ import GetTransactionFee from '../source/Action/Server/GetTransactionFee';
 import Server from '../source/Server';
 import {online} from './Setup/Service';
 
-describe('Test Server API', () => {
+describe('Test Server API: ', () => {
   const server = new Server(online);
 
   it('Server is connected', async () => {
-    const result = await new GetConnected(online).fetch();
-    expect(result.success).toBe(true);
-    expect(result.connected).toBe(true);
+    const item = new GetConnected(online);
+    const response = await item.fetch();
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.success).toBe(true);
+    expect(response.connected).toBe(true);
   });
 
   it('Server is connected', async () => {
@@ -19,8 +23,12 @@ describe('Test Server API', () => {
   });
 
   it('Server Status is syncing', async () => {
-    const result = await new GetStatus(online).fetch();
-    expect(result.success).toBe(true);
+    const item = new GetStatus(online);
+    const response = await item.fetch();
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.success).toBe(true);
     // expect(result.sdchaind_server_status.server_state).toBe('syncing');
   });
 
@@ -31,9 +39,13 @@ describe('Test Server API', () => {
   });
 
   it('Transcation Fee is not zero', async () => {
-    const result = await new GetTransactionFee(online).fetch();
-    expect(result.success).toBe(true);
-    expect(result.fee).not.toBeLessThanOrEqual(0);
+    const item = new GetTransactionFee(online);
+    const response = await item.fetch();
+    const test = await item.validateResponseBody(response);
+    expect(test.errors.length).toBe(0);
+
+    expect(response.success).toBe(true);
+    expect(response.fee).not.toBeLessThanOrEqual(0);
   });
 
   it('Transcation Fee is not zero', async () => {
