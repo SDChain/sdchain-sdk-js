@@ -739,25 +739,6 @@
         "section" : "Type"
       }
     },
-    "Wallet" : {
-      "type" : "object",
-      "required" : [ "address", "secret" ],
-      "properties" : {
-        "address" : {
-          "type" : "string",
-          "description" : "六域链钱包地址（公钥）",
-          "pattern" : "^6"
-        },
-        "secret" : {
-          "type" : "string",
-          "description" : "私钥",
-          "pattern" : "^s"
-        }
-      },
-      "x-restlet" : {
-        "section" : "Type"
-      }
-    },
     "GetNewWalletResponseBody" : {
       "type" : "object",
       "required" : [ "success", "wallet" ],
@@ -767,7 +748,17 @@
           "description" : "请求结果"
         },
         "wallet" : {
-          "$ref" : "#/definitions/Wallet"
+          "required" : [ "address", "secret" ],
+          "type" : "object",
+          "description" : "钱包",
+          "properties" : {
+            "address" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "secret" : {
+              "$ref" : "#/definitions/Secret"
+            }
+          }
         }
       },
       "example" : "{\n    \"wallet\": {\n        \"address\": \"6LnP38XJEW9HQirRruYoopWrZfJWy57AmR\",\n        \"secret\": \"ssG6J35911ofTwGr9shNDJ7K2iFnV\"\n    },\n    \"success\": true\n}",

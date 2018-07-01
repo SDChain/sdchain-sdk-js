@@ -1,10 +1,5 @@
-import TransactionItem from '../../Type/TransactionItem';
+import {GetTransactionItemResponseBody} from '../../Model';
 import Base from '../Base';
-
-export interface Response {
-  success: boolean;
-  transaction: TransactionItem;
-}
 
 export interface Placeholder {
   address: string;
@@ -18,11 +13,11 @@ export interface Options {
 class GetTransactionItem extends Base {
   protected readonly path: string = `/accounts/transactions/{address}/{hash}`;
 
-  async fetch(options: Options): Promise<Response> {
+  async fetch(options: Options): Promise<GetTransactionItemResponseBody> {
     const service = this.service;
     await this.validatePlaceholder(options.placeholder);
     const url = service.getUrl(this.path, options.placeholder);
-    return await service.fetch<Response>(url, {method: this.method.toUpperCase()});
+    return await service.fetch<GetTransactionItemResponseBody>(url, {method: this.method.toUpperCase()});
   }
 
 }

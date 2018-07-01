@@ -3,6 +3,7 @@ import GetOrderBook from '../source/Action/Order/GetOrderBook';
 import GetOrderItem from '../source/Action/Order/GetOrderItem';
 import GetOrderList from '../source/Action/Order/GetOrderList';
 import PostOrderItem from '../source/Action/Order/PostOrderItem';
+import {OrderType} from '../source/Model/enums';
 import Wallet from '../source/Wallet';
 import {online} from './Setup/Service';
 import {data_source, data_target} from './Setup/Setting';
@@ -53,7 +54,7 @@ describe('Test Order API: ', () => {
       body: {
         secret: data_source.secret,
         order: {
-          type: 'buy',
+          type: OrderType.buy,
           taker_pays: {
             currency: 'SDA',
             counterparty: '',

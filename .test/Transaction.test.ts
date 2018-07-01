@@ -1,5 +1,6 @@
 import GetTransactionItem from '../source/Action/Transaction/GetTransactionItem';
 import GetTransactionList from '../source/Action/Transaction/GetTransactionList';
+import {OrderState} from '../source/Model';
 import Wallet from '../source/Wallet';
 import {online} from './Setup/Service';
 import {data_source} from './Setup/Setting';
@@ -35,12 +36,12 @@ describe('Test Transaction API:', () => {
     const item = new GetTransactionItem(online);
     const result = await item.fetch(options);
     // console.dir(result);
-    expect(result.transaction.state).toBe('validated');
+    expect(result.transaction.state).toBe(OrderState.validated);
   });
 
   it('Get Transaction Item', async () => {
     const result = await wallet.getTransactionInfo(data_source.address, data_source.hash.transaction);
-    expect(result.state).toBe('validated');
+    expect(result.state).toBe(OrderState.validated);
   });
 
 });

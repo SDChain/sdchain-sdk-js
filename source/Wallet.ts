@@ -9,8 +9,7 @@ import GetTransactionItem from './Action/Transaction/GetTransactionItem';
 import GetTransactionList from './Action/Transaction/GetTransactionList';
 import GetNewWallet from './Action/Wallet/GetNewWallet';
 import GetWalletBalance from './Action/Wallet/GetWalletBalance';
-import Amount from './Type/Amount';
-import MemoItem from './Type/MemoItem';
+import {Amount, MemoItem, OrderType} from './Model';
 import ServiceInterface from './Type/ServiceInterface';
 
 class Wallet {
@@ -119,7 +118,7 @@ class Wallet {
       body: {
         secret,
         order: {
-          type: '',
+          type: OrderType.buy,
           taker_pays: amount,
           taker_gets: amount
         }
@@ -129,11 +128,11 @@ class Wallet {
     const order = options.body.order;
 
     if (isBuy) {
-      order.type = 'buy';
+      order.type = OrderType.buy;
       order.taker_pays = baseAmount;
       order.taker_gets = counterAmount;
     } else {
-      order.type = 'sell';
+      order.type = OrderType.sell;
       order.taker_pays = counterAmount;
       order.taker_gets = baseAmount;
     }

@@ -14,6 +14,7 @@ export * from './payment-item.model';
 export * from './order-item.model';
 export * from './order-book-item.model';
 export * from './transaction-item.model';
+export * from './wallet.model';
 export * from './get-new-wallet-response-body.model';
 export * from './get-wallet-balance-reponse-body.model';
 export * from './post-payment-item-request-body.model';

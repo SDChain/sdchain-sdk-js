@@ -1,10 +1,5 @@
-import PaymentItem from '../../Type/PaymentItem';
+import {GetPaymentListResponseBody} from '../../Model';
 import Base from '../Base';
-
-export interface RawResponse {
-  payments: PaymentItem[];
-  success: boolean;
-}
 
 export interface Placeholder {
   address: string;
@@ -28,14 +23,14 @@ export interface Options {
 class GetPaymentList extends Base {
   protected readonly path: string = `/accounts/payments/{address}`;
 
-  async fetch(options: Options): Promise<RawResponse> {
+  async fetch(options: Options): Promise<GetPaymentListResponseBody> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     await this.validatePlaceholder(targetOptions.placeholder);
     await this.validateRequestQuery(targetOptions.query);
     const url = service.getUrl(this.path, targetOptions.placeholder, targetOptions.query);
-    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
+    return await service.fetch<GetPaymentListResponseBody>(url, {method: this.method.toUpperCase()});
   }
 
 }

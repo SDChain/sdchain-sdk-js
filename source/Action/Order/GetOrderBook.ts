@@ -1,26 +1,5 @@
-import Amount from '../../Type/Amount';
+import {GetOrderBookResponseBody} from '../../Model';
 import Base from '../Base';
-
-export interface Book {
-  order_maker: string;
-  passive: false;
-  price: Amount;
-  sell: boolean;
-  sequence: number;
-  taker_gets_funded: Amount;
-  taker_gets_total: Amount;
-  taker_pays_funded: Amount;
-  taker_pays_total: Amount;
-}
-
-export interface RawResponse {
-  asks: Book[];
-  bids: Book[];
-  ledger: string;
-  order_book: string;
-  success: boolean;
-  validated: boolean;
-}
 
 export interface Placeholder {
   base: string;
@@ -39,14 +18,14 @@ export interface Options {
 class GetOrderBook extends Base {
   protected readonly path: string = `/order_book/{base}/{counter}`;
 
-  async fetch(options: Options): Promise<RawResponse> {
+  async fetch(options: Options): Promise<GetOrderBookResponseBody> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     await this.validatePlaceholder(targetOptions.placeholder);
     await this.validateRequestQuery(targetOptions.query);
     const url = service.getUrl(this.path, targetOptions.placeholder);
-    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
+    return await service.fetch<GetOrderBookResponseBody>(url, {method: this.method.toUpperCase()});
   }
 
 }

@@ -1,17 +1,13 @@
+import {GetTransactionFeeResponseBody} from '../../Model';
 import Base from '../Base';
-
-export interface RawResponse {
-  fee: string;
-  success: boolean;
-}
 
 class GetTransactionFee extends Base {
   protected readonly path: string = '/transaction-fee';
 
-  async fetch(): Promise<RawResponse> {
+  async fetch(): Promise<GetTransactionFeeResponseBody> {
     const service = this.service;
     const url = service.getUrl(this.path);
-    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
+    return await service.fetch<GetTransactionFeeResponseBody>(url, {method: this.method.toUpperCase()});
   }
 
 }

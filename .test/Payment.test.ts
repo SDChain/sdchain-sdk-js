@@ -1,6 +1,7 @@
 import GetPaymentItem from '../source/Action/Payment/GetPaymentItem';
 import GetPaymentList from '../source/Action/Payment/GetPaymentList';
 import PostPaymentItem from '../source/Action/Payment/PostPaymentItem';
+import {PaymentState} from '../source/Model';
 import Wallet from '../source/Wallet';
 import {online} from './Setup/Service';
 import {data_source, data_target} from './Setup/Setting';
@@ -34,12 +35,12 @@ describe('Payment API', () => {
     };
 
     const result = await new GetPaymentItem(online).fetch(options);
-    expect(result.state).toBe('validated');
+    expect(result.state).toBe(PaymentState.validated);
   });
 
   it('Get Payment Item', async () => {
     const result = await wallet.getPaymentInfo(data_source.address, data_source.hash.payment);
-    expect(result.state).toBe('validated');
+    expect(result.state).toBe(PaymentState.validated);
   });
 
   xit('Post Payment Item', async () => {

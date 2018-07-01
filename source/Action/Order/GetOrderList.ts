@@ -1,16 +1,5 @@
-import OrderItem from '../../Type/OrderItem';
+import {GetOrderListResponseBody} from '../../Model';
 import Base from '../Base';
-
-export interface Order extends OrderItem {
-  passive: boolean;
-  sequence: number;
-}
-
-export interface RawResponse {
-  orders: Order[];
-  success: boolean;
-  validated: boolean;
-}
 
 export interface Placeholder {
   address: string;
@@ -30,7 +19,7 @@ export interface Options {
 class GetOrderList extends Base {
   protected readonly path: string = `/accounts/orders/{address}`;
 
-  async fetch(options: Options): Promise<RawResponse> {
+  async fetch(options: Options): Promise<GetOrderListResponseBody> {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
@@ -38,7 +27,7 @@ class GetOrderList extends Base {
     await this.validatePlaceholder(targetOptions.placeholder);
     await this.validateRequestQuery(targetOptions.query);
     const url = service.getUrl(this.path, targetOptions.placeholder, targetOptions.query);
-    return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
+    return await service.fetch<GetOrderListResponseBody>(url, {method: this.method.toUpperCase()});
   }
 
 }

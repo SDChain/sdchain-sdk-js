@@ -4,9 +4,10 @@
 */
 /* tslint:disable */
 
+import { Wallet } from './wallet.model';
 
 export interface GetNewWalletResponseBody {
     success: boolean;
-    wallet: object;
+    wallet: Wallet;
 }
 
