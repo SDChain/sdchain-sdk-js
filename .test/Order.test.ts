@@ -1,4 +1,5 @@
 import DeleteOrderItem from '../source/Action/Order/DeleteOrderItem';
+import GetOrderBook from '../source/Action/Order/GetOrderBook';
 import GetOrderItem from '../source/Action/Order/GetOrderItem';
 import GetOrderList from '../source/Action/Order/GetOrderList';
 import PostOrderItem from '../source/Action/Order/PostOrderItem';
@@ -108,6 +109,20 @@ describe('Test Order API: ', () => {
   xit('Delete Order Item', async () => {
     const result = await wallet.deleteOrder(data_target.secret, data_target.address, 5);
     expect(result.hash).not.toBe('');
+  });
+
+  it('Get Order Book', async () => {
+    const options = {
+      placeholder: {
+        base: 'SDA',
+        counter: 'SLC+6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq'
+      } // query: {limit: 2}
+    };
+
+    const item = new GetOrderBook(online);
+    const result = await item.fetch(options);
+    // console.dir(result, {depth: null});
+    expect(result.validated).toBe(true);
   });
 
 });

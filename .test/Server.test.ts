@@ -1,5 +1,4 @@
 import GetConnected from '../source/Action/Server/GetConnected';
-import GetOrderBook from '../source/Action/Server/GetOrderBook';
 import GetStatus from '../source/Action/Server/GetStatus';
 import GetTransactionFee from '../source/Action/Server/GetTransactionFee';
 import Server from '../source/Server';
@@ -40,20 +39,6 @@ describe('Test Server API', () => {
   it('Transcation Fee is not zero', async () => {
     const result = await server.getTransactionFee();
     expect(result).not.toBeLessThanOrEqual(0);
-  });
-
-  it('Get Order Book', async () => {
-    const options = {
-      placeholder: {
-        base: 'SDA',
-        counter: 'SLC+6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq'
-      } // query: {limit: 2}
-    };
-
-    const item = new GetOrderBook(online);
-    const result = await item.fetch(options);
-    // console.dir(result, {depth: null});
-    expect(result.validated).toBe(true);
   });
 
 });
