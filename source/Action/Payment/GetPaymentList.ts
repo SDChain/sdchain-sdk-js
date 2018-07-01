@@ -32,6 +32,7 @@ class GetPaymentList extends Base {
     const service = this.service;
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
+    await this.validatePlaceholder(targetOptions.placeholder);
     const url = service.getUrl(this.path, targetOptions.placeholder, targetOptions.query);
     return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }

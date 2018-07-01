@@ -46,6 +46,7 @@ class GetOrderItem extends Base {
 
   async fetch(options: Options): Promise<RawResponse> {
     const service = this.service;
+    await this.validatePlaceholder(options.placeholder);
     const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }

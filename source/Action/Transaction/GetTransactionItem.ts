@@ -20,6 +20,7 @@ class GetTransactionItem extends Base {
 
   async fetch(options: Options): Promise<Response> {
     const service = this.service;
+    await this.validatePlaceholder(options.placeholder);
     const url = service.getUrl(this.path, options.placeholder);
     return await service.fetch<Response>(url, {method: this.method.toUpperCase()});
   }

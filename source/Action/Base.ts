@@ -23,6 +23,14 @@ abstract class Base {
     return await handler.validateModel(test, schema);
   }
 
+  async validatePlaceholder(test: any) {
+    const result = await this.service.handler.validatePlaceholder(test, this.path);
+
+    if (0 < result.errors.length) {
+      throw new Error(result.humanReadable().toString());
+    }
+  }
+
   abstract async fetch(options?: object): Promise<object>;
 
 }
