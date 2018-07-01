@@ -36,6 +36,7 @@ class GetOrderList extends Base {
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
 
     await this.validatePlaceholder(targetOptions.placeholder);
+    await this.validateRequestQuery(targetOptions.query);
     const url = service.getUrl(this.path, targetOptions.placeholder, targetOptions.query);
     return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }

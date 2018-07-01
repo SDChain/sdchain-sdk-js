@@ -59,7 +59,52 @@
     "/accounts/payments/{address}" : {
       "get" : {
         "summary" : "获得支付历史",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "source_account",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "支付方的六域链地址",
+          "pattern" : "^6"
+        }, {
+          "name" : "destination_account",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "收款方的六域链地址",
+          "pattern" : "^6"
+        }, {
+          "name" : "direction",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "交易类型",
+          "enum" : [ "incoming", "outgoing" ]
+        }, {
+          "name" : "start_ledger",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "起始区块高度"
+        }, {
+          "name" : "end_ledger",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "结束区块高度"
+        }, {
+          "name" : "per_page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "每页数量"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "页码"
+        } ],
         "responses" : {
           "200" : {
             "description" : "Status 200",
@@ -204,7 +249,7 @@
           "name" : "limit",
           "in" : "query",
           "required" : false,
-          "type" : "string",
+          "type" : "integer",
           "description" : "每个响应的最大结果"
         } ],
         "responses" : {

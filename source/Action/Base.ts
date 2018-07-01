@@ -31,6 +31,14 @@ abstract class Base {
     }
   }
 
+  async validateRequestQuery(test: any) {
+    const result = await this.service.handler.validateRequestQuery(test, this.path, this.method);
+
+    if (0 < result.errors.length) {
+      throw new Error(result.humanReadable().toString());
+    }
+  }
+
   abstract async fetch(options?: object): Promise<object>;
 
 }

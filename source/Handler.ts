@@ -1,5 +1,5 @@
 import {Handler as Base} from 'swagger-object-validator';
-import {Operation, Response, Schema, Spec} from 'swagger-schema-official';
+import {Operation, Parameter, Response, Schema, Spec} from 'swagger-schema-official';
 
 export type Method = 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch';
 
@@ -56,15 +56,25 @@ class Handler extends Base {
 
     const {parameters} = paths[path];
 
-    if ((undefined === parameters)) {
+    if (undefined === parameters) {
       return;
     }
 
+    return this.getParameterSchema(parameters, 'path');
+  }
+
+  async validatePlaceholder(test: any, path: string) {
+    const placeholder = await this.getPlaceholder(path);
+    const schema = placeholder ? placeholder : '';
+    return await this.validateModel(test, schema);
+  }
+
+  getParameterSchema(parameters: Parameter[], filter: string): Schema {
     const required: string[] = [];
     const properties: { [index: string]: Schema } = {};
 
     parameters
-      .filter(item => ('path' === item.in))
+      .filter(item => (filter === item.in))
       .forEach(item => {
         const {name} = item;
 
@@ -81,9 +91,17 @@ class Handler extends Base {
     };
   }
 
-  async validatePlaceholder(test: any, path: string) {
-    const placeholder = await this.getPlaceholder(path);
-    const schema = placeholder ? placeholder : '';
+  async getRequestQuery(path: string, method: Method = 'get'): Promise<Schema | undefined> {
+    const item = await this.getOperation(path, method);
+
+    if (item) {
+      return this.getParameterSchema(<Parameter[]>item.parameters, 'query');
+    }
+  }
+
+  async validateRequestQuery(test: any, path: string, method: Method = 'get') {
+    const query = await this.getRequestQuery(path, method);
+    const schema = query ? query : '';
     return await this.validateModel(test, schema);
   }
 

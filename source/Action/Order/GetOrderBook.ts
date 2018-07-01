@@ -44,6 +44,7 @@ class GetOrderBook extends Base {
     const defaultOptions = {query: {}};
     const targetOptions: Options = Object.assign({}, defaultOptions, options);
     await this.validatePlaceholder(targetOptions.placeholder);
+    await this.validateRequestQuery(targetOptions.query);
     const url = service.getUrl(this.path, targetOptions.placeholder);
     return await service.fetch<RawResponse>(url, {method: this.method.toUpperCase()});
   }
