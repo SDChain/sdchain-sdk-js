@@ -6,7 +6,7 @@
 
 import { Amount } from './amount.model';
 
-export interface GetWalletBalanceRawReponse {
+export interface GetWalletBalanceReponseBody {
     success: boolean;
     ledger: number;
     balances: Array<Amount>;

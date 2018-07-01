@@ -21,10 +21,7 @@
           "200" : {
             "description" : "Status 200",
             "schema" : {
-              "$ref" : "#/definitions/GetNewWalletRawResponse"
-            },
-            "examples" : {
-              "application/json" : "{\n    \"wallet\": {\n        \"address\": \"6LnP38XJEW9HQirRruYoopWrZfJWy57AmR\",\n        \"secret\": \"ssG6J35911ofTwGr9shNDJ7K2iFnV\"\n    },\n    \"success\": true\n}"
+              "$ref" : "#/definitions/GetNewWalletResponseBody"
             }
           }
         }
@@ -41,10 +38,7 @@
           "200" : {
             "description" : "Status 200",
             "schema" : {
-              "$ref" : "#/definitions/GetWalletBalanceRawReponse"
-            },
-            "examples" : {
-              "application/json" : "{\n    \"ledger\": 1685155,\n    \"balances\": [\n        {\n            \"value\": \"25.86918\",\n            \"currency\": \"SDA\",\n            \"counterparty\": \"\"\n        }\n    ],\n    \"success\": true\n}"
+              "$ref" : "#/definitions/GetWalletBalanceReponseBody"
             }
           }
         }
@@ -62,7 +56,7 @@
         "section" : "Wallet"
       }
     },
-    "/accounts/payments/{source_address}" : {
+    "/accounts/payments/{address}" : {
       "get" : {
         "summary" : "获得支付历史",
         "parameters" : [ ],
@@ -70,7 +64,7 @@
           "200" : {
             "description" : "Status 200",
             "schema" : {
-              "type" : "object"
+              "$ref" : "#/definitions/GetPaymentListResponseBody"
             }
           }
         }
@@ -89,29 +83,23 @@
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/PostPaymentItemRequestBody"
-          },
-          "x-examples" : {
-            "application/json" : "{\n    \"secret\": \"saNYbpu4*************3Hhg8kRu\",\n    \"payment\": {\n        \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n        \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n        \"amount\": \"20\",\n        \"memos\": [\n            {\n                \"MemoType\": \"memos\",\n                \"MemoData\": \"memos\"\n            }\n        ]\n    }\n}"
           }
         } ],
         "responses" : {
           "200" : {
             "description" : "Status 200",
             "schema" : {
-              "$ref" : "#/definitions/PostPaymentItemRawResponse"
-            },
-            "examples" : {
-              "application/json" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"status_url\": \"https://rest-beta.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5/12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"success\": true\n}"
+              "$ref" : "#/definitions/PostPaymentItemResponseBody"
             }
           }
         }
       },
       "parameters" : [ {
-        "name" : "source_address",
+        "name" : "address",
         "in" : "path",
         "required" : true,
         "type" : "string",
-        "description" : "支付方的六域链地址",
+        "description" : "六域链地址",
         "pattern" : "^6",
         "x-example" : "6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5"
       } ],
@@ -127,10 +115,7 @@
           "200" : {
             "description" : "Status 200",
             "schema" : {
-              "$ref" : "#/definitions/GetPaymentItemRawResponse"
-            },
-            "examples" : {
-              "application/json" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"ledger\": \"86520\",\n    \"state\": \"validated\",\n    \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n    \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n    \"amount\": {\n        \"currency\": \"SDA\",\n        \"value\": \"20\",\n        \"issuer\": \"\"\n    },\n    \"currency\": \"SDA\",\n    \"issuer\": \"\",\n    \"direction\": \"outgoing\",\n    \"timestamp\": \"2018-03-06 08:15:42\",\n    \"fee\": \"0.000012\",\n    \"memos\": [\n        {\n            \"memo_type\": \"6D656D6F73\",\n            \"memo_data\": \"E7ACACE4B880E7AC94E4BAA4E69893\"\n        }\n    ],\n    \"success\": true\n}"
+              "$ref" : "#/definitions/GetPaymentItemResponseBody"
             }
           }
         }
@@ -153,6 +138,284 @@
       } ],
       "x-restlet" : {
         "section" : "Payment"
+      }
+    },
+    "/transaction-fee" : {
+      "get" : {
+        "summary" : "获取默认费率",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetTransactionFeeResponseBody"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "/server" : {
+      "get" : {
+        "summary" : "获取服务器信息",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetStatusResponseBody"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "/server/connected" : {
+      "get" : {
+        "summary" : "查看服务器连接",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetConnectedResponseBody"
+            }
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "/accounts/orders/{address}" : {
+      "get" : {
+        "summary" : "查看订单列表",
+        "parameters" : [ {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "页码"
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "每个响应的最大结果"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetOrderListResponseBody"
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "提交订单",
+        "consumes" : [ ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PostOrderItemRequestBody"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/PostOrderItemResponseBody"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址",
+        "pattern" : "^6"
+      } ],
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "/accounts/orders/{address}/{hash}" : {
+      "get" : {
+        "summary" : "查看订单详情",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetOrderItemResponseBody"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "取消订单",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "description" : "支付方的钱包私钥",
+          "pattern" : "^s"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/DeleteOrderItemResponseBody"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址"
+      }, {
+        "name" : "hash",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "* DELETE: 订单编号\n* GET: 交易hash"
+      } ],
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "/order_book/{base}/{counter}" : {
+      "get" : {
+        "summary" : "获取当前订单列表",
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "每个响应的最大结果"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetOrderBookResponseBody"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "base",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "基础通证（currency+counterparty或SDA）"
+      }, {
+        "name" : "counter",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "计算通证（currency+counterparty或SDA）"
+      } ],
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "/accounts/transactions/{address}" : {
+      "get" : {
+        "summary" : "获取交易历史",
+        "parameters" : [ {
+          "name" : "type",
+          "in" : "query",
+          "required" : false,
+          "type" : "string",
+          "description" : "交易种类：\n* payment\n* offercreate\n* offercancel\n* trustset\n\n可提供多个用“,”隔开"
+        }, {
+          "name" : "start_ledger",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "起始区块高度"
+        }, {
+          "name" : "end_ledger",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "结束区块高度"
+        }, {
+          "name" : "per_page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "每页数量"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "页码"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetTransactionListResponseBody"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址",
+        "pattern" : "^6"
+      } ],
+      "x-restlet" : {
+        "section" : "Transaction"
+      }
+    },
+    "/accounts/transactions/{address}/{hash}" : {
+      "get" : {
+        "summary" : "获取交易详情",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200",
+            "schema" : {
+              "$ref" : "#/definitions/GetTransactionItemResponseBody"
+            }
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "address",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "六域链地址"
+      }, {
+        "name" : "hash",
+        "in" : "path",
+        "required" : true,
+        "type" : "string",
+        "description" : "交易hash"
+      } ],
+      "x-restlet" : {
+        "section" : "Transaction"
       }
     }
   },
@@ -229,7 +492,209 @@
         "section" : "Type"
       }
     },
-    "GetNewWalletRawResponse" : {
+    "PaymentItem" : {
+      "type" : "object",
+      "required" : [ "amount", "direction", "fee", "hash", "ledger", "source_account", "timestamp" ],
+      "properties" : {
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "source_account" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "destination_account" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "amount" : {
+          "$ref" : "#/definitions/PaymentAmount"
+        },
+        "direction" : {
+          "$ref" : "#/definitions/PaymentDirection"
+        },
+        "timestamp" : {
+          "type" : "string",
+          "description" : "交易时间"
+        },
+        "fee" : {
+          "type" : "string",
+          "description" : "费率"
+        },
+        "memos" : {
+          "type" : "array",
+          "description" : "支付的备注",
+          "items" : {
+            "$ref" : "#/definitions/MemoItem"
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "OrderItem" : {
+      "type" : "object",
+      "required" : [ "taker_gets", "taker_pays", "type" ],
+      "properties" : {
+        "type" : {
+          "$ref" : "#/definitions/OrderType"
+        },
+        "taker_pays" : {
+          "$ref" : "#/definitions/Amount"
+        },
+        "taker_gets" : {
+          "$ref" : "#/definitions/Amount"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "OrderType" : {
+      "type" : "string",
+      "example" : "类型",
+      "enum" : [ "sell", "buy" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "OrderState" : {
+      "type" : "string",
+      "enum" : [ "validated", "pending" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "PaymentDirection" : {
+      "type" : "string",
+      "enum" : [ "incoming", "outgoing" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "OrderBookItem" : {
+      "type" : "object",
+      "required" : [ "order_maker", "passive", "price", "sell", "taker_gets_funded", "taker_gets_total", "taker_pays_funded", "taker_pays_total" ],
+      "properties" : {
+        "order_maker" : {
+          "$ref" : "#/definitions/Address"
+        },
+        "passive" : {
+          "type" : "boolean"
+        },
+        "price" : {
+          "$ref" : "#/definitions/Amount"
+        },
+        "sell" : {
+          "type" : "boolean"
+        },
+        "sequence" : {
+          "type" : "integer"
+        },
+        "taker_gets_funded" : {
+          "$ref" : "#/definitions/Amount"
+        },
+        "taker_gets_total" : {
+          "$ref" : "#/definitions/Amount"
+        },
+        "taker_pays_funded" : {
+          "$ref" : "#/definitions/Amount"
+        },
+        "taker_pays_total" : {
+          "$ref" : "#/definitions/Amount"
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "TransactionItem" : {
+      "type" : "object",
+      "required" : [ "amount", "date", "effects", "fee", "hash", "ledger", "result", "state", "type" ],
+      "properties" : {
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "state" : {
+          "$ref" : "#/definitions/OrderState"
+        },
+        "date" : {
+          "type" : "string",
+          "description" : "时间"
+        },
+        "type" : {
+          "$ref" : "#/definitions/TransactionType"
+        },
+        "fee" : {
+          "type" : "string",
+          "description" : "费率"
+        },
+        "result" : {
+          "type" : "string",
+          "description" : "结果"
+        },
+        "price" : {
+          "type" : "string",
+          "description" : "单价(type=offercreate)"
+        },
+        "pair" : {
+          "type" : "string",
+          "description" : "交易对(type=offercreate)"
+        },
+        "seq" : {
+          "type" : "integer",
+          "description" : "订单编号(type=offercreate)"
+        },
+        "counterparty" : {
+          "type" : "string",
+          "description" : "对方地址(type=payment)"
+        },
+        "amount" : {
+          "$ref" : "#/definitions/PaymentAmount"
+        },
+        "effects" : {
+          "type" : "array",
+          "description" : "影响",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "memos" : {
+          "type" : "array",
+          "description" : "支付的备注",
+          "items" : {
+            "$ref" : "#/definitions/MemoItem"
+          }
+        }
+      },
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "TransactionType" : {
+      "type" : "string",
+      "enum" : [ "payment", "offercreate", "offercancel", "trustset" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "PaymentState" : {
+      "type" : "string",
+      "enum" : [ "validated", "pending" ],
+      "x-restlet" : {
+        "section" : "Type"
+      }
+    },
+    "GetNewWalletResponseBody" : {
       "type" : "object",
       "required" : [ "success", "wallet" ],
       "properties" : {
@@ -250,11 +715,12 @@
           }
         }
       },
+      "example" : "{\n    \"wallet\": {\n        \"address\": \"6LnP38XJEW9HQirRruYoopWrZfJWy57AmR\",\n        \"secret\": \"ssG6J35911ofTwGr9shNDJ7K2iFnV\"\n    },\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Wallet"
       }
     },
-    "GetWalletBalanceRawReponse" : {
+    "GetWalletBalanceReponseBody" : {
       "type" : "object",
       "required" : [ "balances", "ledger", "success" ],
       "properties" : {
@@ -271,6 +737,7 @@
           }
         }
       },
+      "example" : "{\n    \"ledger\": 1685155,\n    \"balances\": [\n        {\n            \"value\": \"25.86918\",\n            \"currency\": \"SDA\",\n            \"counterparty\": \"\"\n        }\n    ],\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Wallet"
       }
@@ -307,11 +774,12 @@
           }
         }
       },
+      "example" : "{\n    \"secret\": \"saNYbpu4*************3Hhg8kRu\",\n    \"payment\": {\n        \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n        \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n        \"amount\": \"20\",\n        \"memos\": [\n            {\n                \"MemoType\": \"memos\",\n                \"MemoData\": \"memos\"\n            }\n        ]\n    }\n}",
       "x-restlet" : {
         "section" : "Payment"
       }
     },
-    "PostPaymentItemRawResponse" : {
+    "PostPaymentItemResponseBody" : {
       "type" : "object",
       "required" : [ "hash", "status_url", "success" ],
       "properties" : {
@@ -328,13 +796,35 @@
           "description" : "查看交易状态的地址"
         }
       },
+      "example" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"status_url\": \"https://rest-beta.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5/12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Payment"
       }
     },
-    "GetPaymentItemRawResponse" : {
+    "GetPaymentListResponseBody" : {
       "type" : "object",
-      "required" : [ "amount", "currency", "direction", "fee", "hash", "issuer", "ledger", "memos", "source_account", "state", "success", "timestamp" ],
+      "required" : [ "payments", "success" ],
+      "properties" : {
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        },
+        "payments" : {
+          "type" : "array",
+          "description" : "支付历史，同交易记录中的信息",
+          "items" : {
+            "$ref" : "#/definitions/PaymentItem"
+          }
+        }
+      },
+      "example" : "{\n    \"payments\": [\n        {\n            \"hash\": \"BB4839ABD6484C4AC814F1C3AF651A1FE5808703BA9D6901CC2E14EF677784D7\",\n            \"ledger\": \"1125346\",\n            \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n            \"destination_account\": \"6JmTAjeQpXUMZACgGRNwvUG9EMSZmcBXU6\",\n            \"amount\": {\n                \"currency\": \"SDA\",\n                \"value\": \"0.02\",\n                \"issuer\": \"\"\n            },\n            \"direction\": \"outgoing\",\n            \"timestamp\": \"2018-04-18 10:58:50\",\n            \"fee\": \"0.0001\",\n            \"memos\": [\n                {\n                    \"memo_type\": \"6D656D6F\",\n                    \"memo_data\": \"546869732069732061206D656D6F21\"\n                }\n            ]\n        },\n        {\n            \"hash\": \"81F36B67F23DF5E4D651EBA39537239E02A1F78534A48F05C010C4CF852F1768\",\n            \"ledger\": \"1125346\",\n            \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n            \"destination_account\": \"6JmTAjeQpXUMZACgGRNwvUG9EMSZmcBXU6\",\n            \"amount\": {\n                \"currency\": \"SDA\",\n                \"value\": \"0.02\",\n                \"issuer\": \"\"\n            },\n            \"direction\": \"outgoing\",\n            \"timestamp\": \"2018-04-18 10:58:50\",\n            \"fee\": \"0.0001\"\n        }\n    ],\n    \"success\": true\n}",
+      "x-restlet" : {
+        "section" : "Payment"
+      }
+    },
+    "GetPaymentItemResponseBody" : {
+      "type" : "object",
+      "required" : [ "amount", "currency", "direction", "fee", "hash", "issuer", "ledger", "source_account", "state", "success", "timestamp" ],
       "properties" : {
         "hash" : {
           "type" : "string",
@@ -343,11 +833,6 @@
         "ledger" : {
           "type" : "string",
           "description" : "区块高度"
-        },
-        "state" : {
-          "type" : "string",
-          "description" : "状态",
-          "enum" : [ "validated", "pending" ]
         },
         "source_account" : {
           "$ref" : "#/definitions/Address"
@@ -358,15 +843,8 @@
         "amount" : {
           "$ref" : "#/definitions/PaymentAmount"
         },
-        "currency" : {
-          "type" : "string"
-        },
-        "issuer" : {
-          "type" : "string"
-        },
         "direction" : {
-          "type" : "string",
-          "description" : "交易类型"
+          "$ref" : "#/definitions/PaymentDirection"
         },
         "timestamp" : {
           "type" : "string",
@@ -383,21 +861,455 @@
             "$ref" : "#/definitions/MemoItem"
           }
         },
+        "currency" : {
+          "type" : "string"
+        },
+        "issuer" : {
+          "type" : "string"
+        },
+        "state" : {
+          "$ref" : "#/definitions/PaymentState"
+        },
         "success" : {
           "type" : "boolean",
           "description" : "请求结果"
         }
       },
+      "example" : "{\n    \"hash\": \"12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E\",\n    \"ledger\": \"86520\",\n    \"state\": \"validated\",\n    \"source_account\": \"6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5\",\n    \"destination_account\": \"6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc\",\n    \"amount\": {\n        \"currency\": \"SDA\",\n        \"value\": \"20\",\n        \"issuer\": \"\"\n    },\n    \"currency\": \"SDA\",\n    \"issuer\": \"\",\n    \"direction\": \"outgoing\",\n    \"timestamp\": \"2018-03-06 08:15:42\",\n    \"fee\": \"0.000012\",\n    \"memos\": [\n        {\n            \"memo_type\": \"6D656D6F73\",\n            \"memo_data\": \"E7ACACE4B880E7AC94E4BAA4E69893\"\n        }\n    ],\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Payment"
+      }
+    },
+    "GetTransactionFeeResponseBody" : {
+      "type" : "object",
+      "required" : [ "fee", "success" ],
+      "properties" : {
+        "fee" : {
+          "type" : "string",
+          "description" : "当前默认费率"
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\n    \"fee\": \"0.0001\",\n    \"success\": true\n}",
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "GetStatusResponseBody" : {
+      "type" : "object",
+      "required" : [ "sdchaind_server_status", "success" ],
+      "properties" : {
+        "sdchaind_server_status" : {
+          "required" : [ "complete_ledgers", "reserve_base_sda", "server_state" ],
+          "type" : "object",
+          "description" : "六域链服务器状况",
+          "properties" : {
+            "complete_ledgers" : {
+              "type" : "string",
+              "description" : "完成的区块"
+            },
+            "server_state" : {
+              "type" : "string",
+              "description" : "服务器状况",
+              "enum" : [ "syncing" ]
+            },
+            "reserve_base_sda" : {
+              "type" : "number",
+              "description" : "激活至少需要的SDA数量"
+            }
+          }
+        },
+        "success" : {
+          "type" : "boolean"
+        }
+      },
+      "example" : "{\n    \"sdchaind_server_status\": {\n        \"complete_ledgers\": \"1-1715947\",\n        \"server_state\": \"syncing\",\n        \"reserve_base_sda\": 0.6\n    },\n    \"success\": true\n}",
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "GetConnectedResponseBody" : {
+      "type" : "object",
+      "required" : [ "connected", "success" ],
+      "properties" : {
+        "connected" : {
+          "type" : "boolean",
+          "description" : "与服务器的连接情况"
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\n    \"connected\": true,\n    \"success\": true\n}",
+      "x-restlet" : {
+        "section" : "Server"
+      }
+    },
+    "GetOrderListResponseBody" : {
+      "type" : "object",
+      "required" : [ "ledger", "orders", "success", "validated" ],
+      "properties" : {
+        "ledger" : {
+          "type" : "number",
+          "description" : "区块高度"
+        },
+        "validated" : {
+          "type" : "boolean",
+          "description" : "验证状态"
+        },
+        "orders" : {
+          "type" : "array",
+          "description" : "订单信息",
+          "items" : {
+            "required" : [ "passive", "sequence", "taker_gets", "taker_pays", "type" ],
+            "type" : "object",
+            "properties" : {
+              "type" : {
+                "$ref" : "#/definitions/OrderType"
+              },
+              "taker_gets" : {
+                "$ref" : "#/definitions/Amount"
+              },
+              "taker_pays" : {
+                "$ref" : "#/definitions/Amount"
+              },
+              "sequence" : {
+                "type" : "integer",
+                "description" : "订单编号"
+              },
+              "passive" : {
+                "type" : "boolean"
+              }
+            }
+          }
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\n    \"ledger\": 1715947,\n    \"validated\": true,\n    \"orders\": [\n        {\n            \"type\": \"buy\",\n            \"taker_gets\": {\n                \"currency\": \"SDA\",\n                \"value\": \"10\",\n                \"counterparty\": \"\"\n            },\n            \"taker_pays\": {\n                \"currency\": \"SLC\",\n                \"value\": \"50\",\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\n            },\n            \"sequence\": 3,\n            \"passive\": false\n        }\n    ],\n    \"success\": true\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "PostOrderItemRequestBody" : {
+      "type" : "object",
+      "required" : [ "order", "secret" ],
+      "properties" : {
+        "secret" : {
+          "$ref" : "#/definitions/Secret"
+        },
+        "order" : {
+          "$ref" : "#/definitions/OrderItem"
+        }
+      },
+      "example" : "{\r\n    \"secret\": \"saNYbpu4*************3Hhg8kRu\",\r\n    \"order\": {\r\n        \"type\": \"buy\",\r\n        \"taker_pays\": {\r\n            \"currency\": \"SDA\",\r\n            \"counterparty\": \"\",\r\n            \"value\": \"4\"\r\n        },\r\n        \"taker_gets\": {\r\n            \"currency\": \"CNY\",\r\n            \"counterparty\": \"6UPd52jHtu1d88nc3S3WeroACFQpKfybhU\",\r\n            \"value\": \"22\"\r\n        }\r\n    }\r\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "PostOrderItemResponseBody" : {
+      "type" : "object",
+      "required" : [ "hash", "ledger", "order", "state", "success" ],
+      "properties" : {
+        "order" : {
+          "required" : [ "account", "fee", "sequence", "taker_gets", "taker_pays", "type" ],
+          "type" : "object",
+          "description" : "订单信息",
+          "properties" : {
+            "account" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "taker_gets" : {
+              "$ref" : "#/definitions/Amount"
+            },
+            "taker_pays" : {
+              "$ref" : "#/definitions/Amount"
+            },
+            "fee" : {
+              "type" : "string",
+              "description" : "费率"
+            },
+            "type" : {
+              "$ref" : "#/definitions/OrderType"
+            },
+            "sequence" : {
+              "type" : "integer",
+              "description" : "订单编号"
+            }
+          }
+        },
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "state" : {
+          "$ref" : "#/definitions/OrderState"
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"order\": {\r\n        \"account\": \"6GiohV7XVhabbtV1DfKjWEyikeyimiDSNx\",\r\n        \"taker_gets\": {\r\n            \"currency\": \"SDA\",\r\n            \"value\": \"40\",\r\n            \"counterparty\": \"\"\r\n        },\r\n        \"taker_pays\": {\r\n            \"currency\": \"CNY\",\r\n            \"value\": \"50\",\r\n            \"counterparty\": \"6UPd52jHtu1d88nc3S3WeroACFQpKfybhU\"\r\n        },\r\n        \"fee\": \"0.0001\",\r\n        \"type\": \"buy\",\r\n        \"sequence\": 72\r\n    },\r\n    \"hash\": \"F89DACB0CD82370854FE6C8ADB80058562188FAC9E36A7CF614A755CE5DB27B0\",\r\n    \"ledger\": \"62311\",\r\n    \"state\": \"pending\",\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "DeleteOrderItemResponseBody" : {
+      "type" : "object",
+      "required" : [ "hash", "ledger", "order", "state", "success" ],
+      "properties" : {
+        "order" : {
+          "required" : [ "account", "fee", "offer_sequence", "sequence" ],
+          "type" : "object",
+          "description" : "订单信息",
+          "properties" : {
+            "account" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "fee" : {
+              "type" : "string",
+              "description" : "费率"
+            },
+            "offer_sequence" : {
+              "type" : "integer",
+              "description" : "被取消的订单号"
+            },
+            "sequence" : {
+              "type" : "integer",
+              "description" : "交易计数"
+            }
+          }
+        },
+        "hash" : {
+          "type" : "string"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "state" : {
+          "$ref" : "#/definitions/OrderState"
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"order\": {\r\n        \"account\": \"6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB\",\r\n        \"fee\": \"0.0001\",\r\n        \"offer_sequence\": 4,\r\n        \"sequence\": 5\r\n    },\r\n    \"hash\": \"E7D1052220183124843CF5F803FF0B78C44006BB496AA86585E616BEDA66654D\",\r\n    \"ledger\": \"1315614\",\r\n    \"state\": \"pending\",\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "GetOrderItemResponseBody" : {
+      "type" : "object",
+      "required" : [ "action", "balance_changes", "direction", "fee", "hash", "ledger", "order", "order_changes", "success", "timestamp", "type", "validated" ],
+      "properties" : {
+        "hash" : {
+          "type" : "string",
+          "description" : "交易hash"
+        },
+        "ledger" : {
+          "type" : "integer",
+          "description" : "区块高度"
+        },
+        "validated" : {
+          "type" : "boolean",
+          "description" : "验证状态"
+        },
+        "timestamp" : {
+          "type" : "string"
+        },
+        "fee" : {
+          "type" : "string"
+        },
+        "action" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/OrderType"
+        },
+        "direction" : {
+          "$ref" : "#/definitions/PaymentDirection"
+        },
+        "order" : {
+          "required" : [ "account", "taker_gets", "taker_pays", "type" ],
+          "type" : "object",
+          "description" : "订单信息",
+          "properties" : {
+            "account" : {
+              "$ref" : "#/definitions/Address"
+            },
+            "taker_pays" : {
+              "$ref" : "#/definitions/Amount"
+            },
+            "taker_gets" : {
+              "$ref" : "#/definitions/Amount"
+            },
+            "passive" : {
+              "type" : "boolean"
+            },
+            "immediate_or_cancel" : {
+              "type" : "boolean"
+            },
+            "fill_or_kill" : {
+              "type" : "boolean"
+            },
+            "type" : {
+              "$ref" : "#/definitions/OrderType"
+            },
+            "sequence" : {
+              "type" : "integer",
+              "description" : "订单编号"
+            }
+          }
+        },
+        "balance_changes" : {
+          "type" : "array",
+          "description" : "余额变化",
+          "items" : {
+            "$ref" : "#/definitions/Amount"
+          }
+        },
+        "order_changes" : {
+          "type" : "array",
+          "items" : {
+            "required" : [ "sequence", "status", "taker_gets", "taker_pays" ],
+            "type" : "object",
+            "properties" : {
+              "taker_pays" : {
+                "$ref" : "#/definitions/Amount"
+              },
+              "taker_gets" : {
+                "$ref" : "#/definitions/Amount"
+              },
+              "sequence" : {
+                "type" : "integer",
+                "description" : "订单编号"
+              },
+              "status" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"hash\": \"F70692E1040290111E61DC6AFB76245BE02E4C1A8A74758FA23B472EADE8A3D6\",\r\n    \"ledger\": 1315268,\r\n    \"validated\": true,\r\n    \"timestamp\": \"2018-05-10 10:32:00\",\r\n    \"fee\": \"0.0001\",\r\n    \"action\": \"order_create\",\r\n    \"type\": \"buy\",\r\n    \"direction\": \"outgoing\",\r\n    \"order\": {\r\n        \"account\": \"6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB\",\r\n        \"taker_pays\": {\r\n            \"currency\": \"SLC\",\r\n            \"value\": \"50\",\r\n            \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n        },\r\n        \"taker_gets\": {\r\n            \"currency\": \"SDA\",\r\n            \"value\": \"10\",\r\n            \"counterparty\": \"\"\r\n        },\r\n        \"passive\": false,\r\n        \"immediate_or_cancel\": false,\r\n        \"fill_or_kill\": false,\r\n        \"type\": \"sell\",\r\n        \"sequence\": 3\r\n    },\r\n    \"balance_changes\": [\r\n        {\r\n            \"counterparty\": \"\",\r\n            \"currency\": \"SDA\",\r\n            \"value\": \"-0.0001\"\r\n        }\r\n    ],\r\n    \"order_changes\": [\r\n        {\r\n            \"taker_pays\": {\r\n                \"currency\": \"SLC\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\",\r\n                \"value\": \"50\"\r\n            },\r\n            \"taker_gets\": {\r\n                \"currency\": \"SDA\",\r\n                \"counterparty\": \"\",\r\n                \"value\": \"10\"\r\n            },\r\n            \"sequence\": 3,\r\n            \"status\": \"created\"\r\n        }\r\n    ],\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "GetOrderBookResponseBody" : {
+      "type" : "object",
+      "required" : [ "asks", "bids", "ledger", "order_book", "success", "validated" ],
+      "properties" : {
+        "order_book" : {
+          "type" : "string",
+          "description" : "交易对"
+        },
+        "ledger" : {
+          "type" : "string",
+          "description" : "区块高度"
+        },
+        "validated" : {
+          "type" : "boolean",
+          "description" : "验证状态"
+        },
+        "bids" : {
+          "type" : "array",
+          "description" : "买单信息",
+          "items" : {
+            "$ref" : "#/definitions/OrderBookItem"
+          }
+        },
+        "asks" : {
+          "type" : "array",
+          "description" : "卖单信息",
+          "items" : {
+            "$ref" : "#/definitions/OrderBookItem"
+          }
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"order_book\": \"SDA/SLC+6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\",\r\n    \"ledger\": \"1715947\",\r\n    \"validated\": true,\r\n    \"bids\": [\r\n        {\r\n            \"price\": {\r\n                \"currency\": \"SLC\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\",\r\n                \"value\": \"0.25\"\r\n            },\r\n            \"taker_gets_funded\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.25\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"taker_gets_total\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.25\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"taker_pays_funded\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"1\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"taker_pays_total\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"1\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"order_maker\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n            \"sequence\": 25,\r\n            \"passive\": false,\r\n            \"sell\": true\r\n        }\r\n    ],\r\n    \"asks\": [\r\n        {\r\n            \"price\": {\r\n                \"currency\": \"SLC\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\",\r\n                \"value\": \"0.33333333333333366667\"\r\n            },\r\n            \"taker_gets_funded\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"3\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"taker_gets_total\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"3\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"taker_pays_funded\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"1.000000000000001\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"taker_pays_total\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"1.000000000000001\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"order_maker\": \"6E7gcs7TS3by2iZCXrjYZkD2HthJcph34y\",\r\n            \"sequence\": 2,\r\n            \"passive\": false,\r\n            \"sell\": false\r\n        },\r\n        {\r\n            \"price\": {\r\n                \"currency\": \"SLC\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\",\r\n                \"value\": \"5\"\r\n            },\r\n            \"taker_gets_funded\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"10\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"taker_gets_total\": {\r\n                \"currency\": \"SDA\",\r\n                \"value\": \"10\",\r\n                \"counterparty\": \"\"\r\n            },\r\n            \"taker_pays_funded\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"50\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"taker_pays_total\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"50\",\r\n                \"counterparty\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"order_maker\": \"6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB\",\r\n            \"sequence\": 3,\r\n            \"passive\": false,\r\n            \"sell\": false\r\n        }\r\n    ],\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Order"
+      }
+    },
+    "GetTransactionListResponseBody" : {
+      "type" : "object",
+      "required" : [ "success", "transactions" ],
+      "properties" : {
+        "transactions" : {
+          "type" : "array",
+          "description" : "交易对象数组",
+          "items" : {
+            "$ref" : "#/definitions/TransactionItem"
+          }
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"transactions\": [\r\n        {\r\n            \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\r\n            \"ledger\": \"1323051\",\r\n            \"state\": \"validated\",\r\n            \"date\": \"2018-05-11 08:09:10\",\r\n            \"type\": \"incoming\",\r\n            \"fee\": \"0.0001\",\r\n            \"result\": \"tesSUCCESS\",\r\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n            \"amount\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.1\",\r\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"effects\": []\r\n        },\r\n        {\r\n            \"hash\": \"9E583AF987895774DDA992853719B9B38238F8BE7EA79A9BBF635B0A38A54B13\",\r\n            \"ledger\": \"1323049\",\r\n            \"state\": \"validated\",\r\n            \"date\": \"2018-05-11 08:08:50\",\r\n            \"type\": \"incoming\",\r\n            \"fee\": \"0.0001\",\r\n            \"result\": \"tesSUCCESS\",\r\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n            \"amount\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.12\",\r\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"effects\": [],\r\n            \"memos\": [\r\n                {\r\n                    \"memo_type\": \"537472696E67\",\r\n                    \"memo_data\": \"4A6176612074657374206D656D6F\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Transaction"
+      }
+    },
+    "GetTransactionItemResponseBody" : {
+      "type" : "object",
+      "required" : [ "success", "transaction" ],
+      "properties" : {
+        "transaction" : {
+          "$ref" : "#/definitions/TransactionItem"
+        },
+        "success" : {
+          "type" : "boolean",
+          "description" : "请求结果"
+        }
+      },
+      "example" : "{\r\n    \"transaction\": {\r\n        \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\r\n        \"ledger\": \"1323051\",\r\n        \"state\": \"validated\",\r\n        \"date\": \"2018-05-11 08:09:10\",\r\n        \"type\": \"incoming\",\r\n        \"fee\": \"0.0001\",\r\n        \"result\": \"tesSUCCESS\",\r\n        \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n        \"amount\": {\r\n            \"currency\": \"SLC\",\r\n            \"value\": \"0.1\",\r\n            \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n        },\r\n        \"effects\": []\r\n    },\r\n    \"success\": true\r\n}",
+      "x-restlet" : {
+        "section" : "Transaction"
       }
     }
   },
   "x-restlet" : {
     "sections" : {
       "Type" : { },
-      "Wallet" : { },
-      "Payment" : { }
+      "Wallet" : {
+        "description" : "账户接口"
+      },
+      "Payment" : {
+        "description" : "支付接口"
+      },
+      "Server" : {
+        "description" : "服务器基本信息接口"
+      },
+      "Order" : {
+        "description" : "订单接口"
+      },
+      "Transaction" : {
+        "description" : "交易历史接口"
+      }
     }
   }
 }

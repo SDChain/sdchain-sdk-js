@@ -10,9 +10,35 @@ export enum example_enum {
     example = <any>"example",
 }
 
-export enum state {
+export enum OrderType {
+    sell = <any>"sell",
+    buy = <any>"buy",
+}
+
+export enum OrderState {
     validated = <any>"validated",
     pending = <any>"pending",
+}
+
+export enum PaymentDirection {
+    incoming = <any>"incoming",
+    outgoing = <any>"outgoing",
+}
+
+export enum TransactionType {
+    payment = <any>"payment",
+    offercreate = <any>"offercreate",
+    offercancel = <any>"offercancel",
+    trustset = <any>"trustset",
+}
+
+export enum PaymentState {
+    validated = <any>"validated",
+    pending = <any>"pending",
+}
+
+export enum server_state {
+    syncing = <any>"syncing",
 }
 
 

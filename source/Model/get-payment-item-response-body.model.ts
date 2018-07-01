@@ -4,24 +4,25 @@
 */
 /* tslint:disable */
 
-import { state } from '';
 import { Address } from './address.model';
 import { PaymentAmount } from './payment-amount.model';
+import { PaymentDirection } from './enums';
 import { MemoItem } from './memo-item.model';
+import { PaymentState } from './enums';
 
-export interface GetPaymentItemRawResponse {
+export interface GetPaymentItemResponseBody {
     hash: string;
     ledger: string;
-    state: state;
     source_account: Address;
     destination_account?: Address;
     amount: PaymentAmount;
-    currency: string;
-    issuer: string;
-    direction: string;
+    direction: PaymentDirection;
     timestamp: string;
     fee: string;
-    memos: Array<MemoItem>;
+    memos?: Array<MemoItem>;
+    currency: string;
+    issuer: string;
+    state: PaymentState;
     success: boolean;
 }
 

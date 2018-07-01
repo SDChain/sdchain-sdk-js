@@ -5,9 +5,8 @@
 /* tslint:disable */
 
 
-export interface PostPaymentItemRawResponse {
+export interface GetTransactionFeeResponseBody {
+    fee: string;
     success: boolean;
-    hash: string;
-    status_url: string;
 }
 

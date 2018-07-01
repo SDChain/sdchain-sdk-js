@@ -5,8 +5,8 @@
 /* tslint:disable */
 
 
-export interface GetNewWalletRawResponse {
+export interface GetConnectedResponseBody {
+    connected: boolean;
     success: boolean;
-    wallet: object;
 }
 

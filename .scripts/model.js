@@ -8,7 +8,9 @@ const script = () => {
   const model = source + '/Model';
   const file = source + '/swagger20-with-extensions.json';
   emptyDirSync(model);
-  generateTSFiles(file, {modelFolder: model, enumTSFile: model + '/enums.ts', generateClasses: false});
+  generateTSFiles(file, {
+    modelFolder: model, enumTSFile: model + '/enums.ts', enumRef: './enums', generateClasses: false
+  });
 };
 
 script();

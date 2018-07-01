@@ -20,11 +20,11 @@ interface TransactionItem {
   fee: string;
   hash: string;
   ledger: string;
-  offertype: string;
-  pair: string;
-  price: string;
-  result: string;
-  seq: number;
+  // offertype: string;
+  pair?: string;
+  price?: string;
+  result?: string;
+  seq?: number;
   state: string;
   type: string;
 }
