@@ -3,15 +3,63 @@ The javascript version of SDChain SDK
 
 ## Function Description
 1. Contains interfaces provided by [REST-API](https://rest-beta.sdchain.io/).
-2. Including usage examples.
+2. Including usage examples, in .test/*.ts .
 3. Explicitly explain the dependent version,and the dependent third-party libraries and their versions.
 4. Includes instructions on how to run the examples.
 
+Dependent packages:
+- @agrozyme/scripts-helper: install global modules (TypeScript / Jasmine / Typedoc)
+- fs-extra: create / empty Model directory
+- node-fetch: request / call API
+- swagger-object-validator: request / response data validator
+- urijs: parse URI pattern
+- swagger-ts-generator: build Model interfaces
+
+
+Update Model: (for this SDK developer)
+1. use API design tool to update `swagger20-with-extensions.json` file.
+2. run `npm run model`
+
+Update Document: run `npm run document` (for this SDK developer)
+
+Simple object document: use browser open `doc/index.html`
+
 functions:
 
-SDK ini: `APIServer.init(serverUrl,version,...);`
+create Service Object: `new Service(serverUrl, version)`
 
-SDK-APIS: 
+example:
+```typescript
+import Service from 'sdchain-sdk-js/source/Service';
+
+const service = new Service('https://rest-beta.sdchain.io', 'v1');
+```
+
+
+create Server Object: `new Server(service);`
+
+example:
+```typescript
+import Service from 'sdchain-sdk-js/source/Service';
+import Service from 'sdchain-sdk-js/source/Server';
+
+const service = new Service('https://rest-beta.sdchain.io', 'v1');
+const server = new Server(service);
+```
+
+create Wallet Object: `new Wallet(service);`
+
+example:
+```typescript
+import Service from 'sdchain-sdk-js/source/Service';
+import Service from 'sdchain-sdk-js/source/Wallet';
+
+const service = new Service('https://rest-beta.sdchain.io', 'v1');
+const wallet = new Wallet(service);
+```
+
+
+SDK-APIS:
 
 | seq |               api               |                             url                              | new |
 |-----|---------------------------------|--------------------------------------------------------------|-----|
@@ -30,3 +78,4 @@ SDK-APIS:
 |  13 | Server.getInfo();               | GET    : /v1/server                                          | Y   |
 |  14 | Server.isConnected();           | GET    : /v1/server/connected                                | Y   |
 |     |                                 |                                                              |     |
+

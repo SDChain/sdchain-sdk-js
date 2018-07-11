@@ -1,0 +1,456 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>sdchain-sdk-js</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">sdchain-sdk-js</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> sdchain-sdk-js</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="sdchain-sdk-js">sdchain-sdk-js</h1>
+				<p>The javascript version of SDChain SDK</p>
+				<h2 id="function-description">Function Description</h2>
+				<ol>
+					<li>Contains interfaces provided by <a href="https://rest-beta.sdchain.io/">REST-API</a>.</li>
+					<li>Including usage examples, in .test/*.ts .</li>
+					<li>Explicitly explain the dependent version,and the dependent third-party libraries and their versions.</li>
+					<li>Includes instructions on how to run the examples.</li>
+				</ol>
+				<p>Dependent packages:</p>
+				<ul>
+					<li>@agrozyme/scripts-helper: install global TypeScript / Jasmine</li>
+					<li>fs-extra: create / empty Model directory</li>
+					<li>node-fetch: request / call API</li>
+					<li>swagger-object-validator: request / response data validator</li>
+					<li>urijs: parse URI pattern</li>
+					<li>swagger-ts-generator: build Model interfaces</li>
+				</ul>
+				<p>Update Model: (for this SDK developer)</p>
+				<ol>
+					<li>use API design tool to update <code>swagger20-with-extensions.json</code> file.</li>
+					<li>run <code>npm run model</code></li>
+				</ol>
+				<p>Update Document: run <code>npm run doc</code> (for this SDK developer)</p>
+				<p>Simple object document: use browser open <code>doc/index.html</code></p>
+				<p>functions:</p>
+				<p>create Service Object: <code>new Service(serverUrl, version)</code></p>
+				<p>example:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
+
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+</code></pre>
+				<p>create Server Object: <code>new Server(service);</code></p>
+				<p>example:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
+<span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Server'</span>;
+
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> Server(service);
+</code></pre>
+				<p>create Wallet Object: <code>new Wallet(service);</code></p>
+				<p>example:</p>
+				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
+<span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Wallet'</span>;
+
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+<span class="hljs-keyword">const</span> wallet = <span class="hljs-keyword">new</span> Wallet(service);
+</code></pre>
+				<p>SDK-APIS:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>seq</th>
+							<th>api</th>
+							<th>url</th>
+							<th>new</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>Wallet.newWallet();</td>
+							<td>GET    : /v1/wallet/new</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Wallet.getBalance(...);</td>
+							<td>GET    : /v1/accounts/balances/{:address}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>Wallet.submitPayment(...);</td>
+							<td>POST   : /v1/accounts/payments/{:source_address}?submit=true</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>Wallet.getPaymentList(...);</td>
+							<td>GET    : /v1/accounts/payments/{:address}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>Wallet.getPaymentInfo(...);</td>
+							<td>GET    : /v1/accounts/payments/{:address}/{:hash}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>Wallet.getTransactionList(...);</td>
+							<td>GET    : /v1/accounts/transactions/{:address}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>Wallet.getTransactionInfo(...);</td>
+							<td>GET    : /v1/accounts/transactions/{:address}/{:hash}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>Wallet.getOrderList(...);</td>
+							<td>GET    : /v1/accounts/orders/{:address}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>Wallet.submitOrder(...);</td>
+							<td>POST   : /v1/accounts/orders/{:address}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>10</td>
+							<td>Wallet.deleteOrder(...);</td>
+							<td>DELETE : /v1/accounts/orders/{:address}/{:sequence}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>11</td>
+							<td>Wallet.getOrderInfo(...);</td>
+							<td>GET    : /v1/accounts/orders/{:address}/{:hash}</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>12</td>
+							<td>Server.getTransactionFee();</td>
+							<td>GET    : /v1/transaction-fee</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>13</td>
+							<td>Server.getInfo();</td>
+							<td>GET    : /v1/server</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td>14</td>
+							<td>Server.isConnected();</td>
+							<td>GET    : /v1/server/connected</td>
+							<td>Y</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_base_.html">"<wbr>Action/<wbr>Base"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_order_deleteorderitem_.html">"<wbr>Action/<wbr>Order/<wbr>Delete<wbr>Order<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_order_getorderbook_.html">"<wbr>Action/<wbr>Order/<wbr>Get<wbr>Order<wbr>Book"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_order_getorderitem_.html">"<wbr>Action/<wbr>Order/<wbr>Get<wbr>Order<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_order_getorderlist_.html">"<wbr>Action/<wbr>Order/<wbr>Get<wbr>Order<wbr>List"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_order_postorderitem_.html">"<wbr>Action/<wbr>Order/<wbr>Post<wbr>Order<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_payment_getpaymentitem_.html">"<wbr>Action/<wbr>Payment/<wbr>Get<wbr>Payment<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_payment_getpaymentlist_.html">"<wbr>Action/<wbr>Payment/<wbr>Get<wbr>Payment<wbr>List"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_payment_postpaymentitem_.html">"<wbr>Action/<wbr>Payment/<wbr>Post<wbr>Payment<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_server_getconnected_.html">"<wbr>Action/<wbr>Server/<wbr>Get<wbr>Connected"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_server_getstatus_.html">"<wbr>Action/<wbr>Server/<wbr>Get<wbr>Status"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_server_gettransactionfee_.html">"<wbr>Action/<wbr>Server/<wbr>Get<wbr>Transaction<wbr>Fee"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_transaction_gettransactionitem_.html">"<wbr>Action/<wbr>Transaction/<wbr>Get<wbr>Transaction<wbr>Item"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_transaction_gettransactionlist_.html">"<wbr>Action/<wbr>Transaction/<wbr>Get<wbr>Transaction<wbr>List"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_wallet_getnewwallet_.html">"<wbr>Action/<wbr>Wallet/<wbr>Get<wbr>New<wbr>Wallet"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_action_wallet_getwalletbalance_.html">"<wbr>Action/<wbr>Wallet/<wbr>Get<wbr>Wallet<wbr>Balance"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_handler_.html">"<wbr>Handler"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_address_model_.html">"<wbr>Model/address.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_amount_model_.html">"<wbr>Model/amount.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_delete_order_item_response_body_model_.html">"<wbr>Model/delete-<wbr>order-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_effect_model_.html">"<wbr>Model/effect.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_enums_.html">"<wbr>Model/enums"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_connected_response_body_model_.html">"<wbr>Model/get-<wbr>connected-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_new_wallet_response_body_model_.html">"<wbr>Model/get-<wbr>new-<wbr>wallet-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_order_book_response_body_model_.html">"<wbr>Model/get-<wbr>order-<wbr>book-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_order_item_response_body_model_.html">"<wbr>Model/get-<wbr>order-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_order_list_response_body_model_.html">"<wbr>Model/get-<wbr>order-<wbr>list-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_payment_item_response_body_model_.html">"<wbr>Model/get-<wbr>payment-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_payment_list_response_body_model_.html">"<wbr>Model/get-<wbr>payment-<wbr>list-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_status_response_body_model_.html">"<wbr>Model/get-<wbr>status-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_transaction_fee_response_body_model_.html">"<wbr>Model/get-<wbr>transaction-<wbr>fee-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_transaction_item_response_body_model_.html">"<wbr>Model/get-<wbr>transaction-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_transaction_list_response_body_model_.html">"<wbr>Model/get-<wbr>transaction-<wbr>list-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_get_wallet_balance_reponse_body_model_.html">"<wbr>Model/get-<wbr>wallet-<wbr>balance-<wbr>reponse-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_index_.html">"<wbr>Model/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_memo_item_model_.html">"<wbr>Model/memo-<wbr>item.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_order_book_item_model_.html">"<wbr>Model/order-<wbr>book-<wbr>item.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_order_item_model_.html">"<wbr>Model/order-<wbr>item.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_payment_amount_model_.html">"<wbr>Model/payment-<wbr>amount.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_payment_item_model_.html">"<wbr>Model/payment-<wbr>item.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_post_order_item_request_body_model_.html">"<wbr>Model/post-<wbr>order-<wbr>item-<wbr>request-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_post_order_item_response_body_model_.html">"<wbr>Model/post-<wbr>order-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_post_payment_item_request_body_model_.html">"<wbr>Model/post-<wbr>payment-<wbr>item-<wbr>request-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_post_payment_item_response_body_model_.html">"<wbr>Model/post-<wbr>payment-<wbr>item-<wbr>response-<wbr>body.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_secret_model_.html">"<wbr>Model/secret.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_sub_type_factory_.html">"<wbr>Model/sub-<wbr>type-<wbr>factory"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_transaction_amount_model_.html">"<wbr>Model/transaction-<wbr>amount.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_transaction_item_model_.html">"<wbr>Model/transaction-<wbr>item.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_model_wallet_model_.html">"<wbr>Model/wallet.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_server_.html">"<wbr>Server"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_service_.html">"<wbr>Service"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wallet_.html">"<wbr>Wallet"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
