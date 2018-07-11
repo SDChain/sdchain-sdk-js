@@ -73,7 +73,7 @@
 					<li>Explicitly explain the dependent version,and the dependent third-party libraries and their versions.</li>
 					<li>Includes instructions on how to run the examples.</li>
 				</ol>
-				<p>Dependent packages:</p>
+				<h2 id="dependent-packages-">Dependent packages:</h2>
 				<ul>
 					<li>@agrozyme/scripts-helper: install global modules (TypeScript / Jasmine / Typedoc)</li>
 					<li>fs-extra: create / empty Model directory</li>
@@ -82,13 +82,16 @@
 					<li>urijs: parse URI pattern</li>
 					<li>swagger-ts-generator: build Model interfaces</li>
 				</ul>
-				<p>Update Model: (for this SDK developer)</p>
+				<h2 id="sdk-developer-">SDK developer:</h2>
+				<p><em>The section not for using SDK</em></p>
+				<p>Update Model:</p>
 				<ol>
 					<li>use API design tool to update <code>swagger20-with-extensions.json</code> file.</li>
 					<li>run <code>npm run model</code></li>
 				</ol>
-				<p>Update Document: run <code>npm run document</code> (for this SDK developer)</p>
-				<p>Simple object document: use browser open <code>doc/index.html</code></p>
+				<p>Update Document: run <code>npm run document</code></p>
+				<h2 id="using-sdk-">Using SDK:</h2>
+				<p>Simple object document: use browser open <code>document/index.html</code></p>
 				<p>functions:</p>
 				<p>create Service Object: <code>new Service(serverUrl, version)</code></p>
 				<p>example:</p>

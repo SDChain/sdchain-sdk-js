@@ -7,7 +7,7 @@ The javascript version of SDChain SDK
 3. Explicitly explain the dependent version,and the dependent third-party libraries and their versions.
 4. Includes instructions on how to run the examples.
 
-Dependent packages:
+## Dependent packages:
 - @agrozyme/scripts-helper: install global modules (TypeScript / Jasmine / Typedoc)
 - fs-extra: create / empty Model directory
 - node-fetch: request / call API
@@ -15,14 +15,17 @@ Dependent packages:
 - urijs: parse URI pattern
 - swagger-ts-generator: build Model interfaces
 
+## SDK developer:
+*The section not for using SDK*
 
-Update Model: (for this SDK developer)
+Update Model:
 1. use API design tool to update `swagger20-with-extensions.json` file.
 2. run `npm run model`
 
-Update Document: run `npm run document` (for this SDK developer)
+Update Document: run `npm run document`
 
-Simple object document: use browser open `doc/index.html`
+## Using SDK:
+Simple object document: use browser open `document/index.html`
 
 functions:
 
