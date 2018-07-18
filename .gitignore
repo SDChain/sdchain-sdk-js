@@ -3,6 +3,7 @@
 
 *.js
 !/.scripts/*.js
+!/document/**/*.js
 
 # Logs
 logs

@@ -15,7 +15,8 @@ export interface TransactionItem {
     hash: string;
     ledger: string;
     state: OrderState;
-    date: string;
+    date: number;
+    time: string;
     type: TransactionType;
     fee: string;
     result: string;

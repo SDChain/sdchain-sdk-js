@@ -68,7 +68,7 @@
 				<p>The javascript version of SDChain SDK</p>
 				<h2 id="function-description">Function Description</h2>
 				<ol>
-					<li>Contains interfaces provided by <a href="https://rest-beta.sdchain.io/">REST-API</a>.</li>
+					<li>Contains interfaces provided by <a href="https://cable.sdchain.io/">REST-API</a>.</li>
 					<li>Including usage examples, in .test/*.ts .</li>
 					<li>Explicitly explain the dependent version,and the dependent third-party libraries and their versions.</li>
 					<li>Includes instructions on how to run the examples.</li>
@@ -97,14 +97,14 @@
 				<p>example:</p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
 
-<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://cable.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
 </code></pre>
 				<p>create Server Object: <code>new Server(service);</code></p>
 				<p>example:</p>
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
 <span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Server'</span>;
 
-<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://cable.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
 <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> Server(service);
 </code></pre>
 				<p>create Wallet Object: <code>new Wallet(service);</code></p>
@@ -112,7 +112,7 @@
 				<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Service'</span>;
 <span class="hljs-keyword">import</span> Service <span class="hljs-keyword">from</span> <span class="hljs-string">'sdchain-sdk-js/source/Wallet'</span>;
 
-<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://rest-beta.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
+<span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> Service(<span class="hljs-string">'https://cable.sdchain.io'</span>, <span class="hljs-string">'v1'</span>);
 <span class="hljs-keyword">const</span> wallet = <span class="hljs-keyword">new</span> Wallet(service);
 </code></pre>
 				<p>SDK-APIS:</p>
