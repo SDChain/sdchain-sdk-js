@@ -1,3 +1,9 @@
+/.idea/
+/.vscode/
+
+*.js
+!/.scripts/*.js
+
 # Logs
 logs
 *.log
