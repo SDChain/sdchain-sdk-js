@@ -17,9 +17,9 @@
   "bugs": "https://github.com/agrozyme/sdchain-sdk-js/issues",
   "homepage": "https://github.com/agrozyme/sdchain-sdk-js#readme",
   "devDependencies": {
-    "@types/fs-extra": "^5.0.3",
+    "@types/fs-extra": "^5.0.4",
     "@types/jasmine": "^2.8.8",
-    "@types/node": "^10.5.1",
+    "@types/node": "^10.5.2",
     "@types/node-fetch": "^2.1.1",
     "@types/urijs": "^1.15.38",
     "swagger-ts-generator": "^1.1.39"

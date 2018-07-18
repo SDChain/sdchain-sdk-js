@@ -558,7 +558,7 @@
     },
     "PaymentItem" : {
       "type" : "object",
-      "required" : [ "amount", "direction", "fee", "hash", "ledger", "source_account", "timestamp" ],
+      "required" : [ "amount", "date", "direction", "fee", "hash", "ledger", "source_account", "timestamp" ],
       "properties" : {
         "hash" : {
           "type" : "string",
@@ -579,6 +579,10 @@
         },
         "direction" : {
           "$ref" : "#/definitions/PaymentDirection"
+        },
+        "date" : {
+          "type" : "number",
+          "description" : "交易时间"
         },
         "timestamp" : {
           "type" : "string",
@@ -685,7 +689,7 @@
     },
     "TransactionItem" : {
       "type" : "object",
-      "required" : [ "amount", "date", "effects", "fee", "hash", "ledger", "offertype", "result", "state", "type" ],
+      "required" : [ "amount", "date", "effects", "fee", "hash", "ledger", "offertype", "result", "state", "time", "type" ],
       "properties" : {
         "hash" : {
           "type" : "string",
@@ -699,6 +703,10 @@
           "$ref" : "#/definitions/OrderState"
         },
         "date" : {
+          "type" : "number",
+          "description" : "时间"
+        },
+        "time" : {
           "type" : "string",
           "description" : "时间"
         },
@@ -936,7 +944,7 @@
     },
     "GetPaymentItemResponseBody" : {
       "type" : "object",
-      "required" : [ "amount", "currency", "direction", "fee", "hash", "issuer", "ledger", "source_account", "state", "success", "timestamp" ],
+      "required" : [ "amount", "currency", "date", "direction", "fee", "hash", "issuer", "ledger", "source_account", "state", "success", "timestamp" ],
       "properties" : {
         "hash" : {
           "type" : "string",
@@ -957,6 +965,10 @@
         },
         "direction" : {
           "$ref" : "#/definitions/PaymentDirection"
+        },
+        "date" : {
+          "type" : "number",
+          "description" : "交易时间"
         },
         "timestamp" : {
           "type" : "string",
@@ -1381,7 +1393,7 @@
           "description" : "请求结果"
         }
       },
-      "example" : "{\r\n    \"transactions\": [\r\n        {\r\n            \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\r\n            \"ledger\": \"1323051\",\r\n            \"state\": \"validated\",\r\n            \"date\": \"2018-05-11 08:09:10\",\r\n            \"type\": \"incoming\",\r\n            \"fee\": \"0.0001\",\r\n            \"result\": \"tesSUCCESS\",\r\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n            \"amount\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.1\",\r\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"effects\": []\r\n        },\r\n        {\r\n            \"hash\": \"9E583AF987895774DDA992853719B9B38238F8BE7EA79A9BBF635B0A38A54B13\",\r\n            \"ledger\": \"1323049\",\r\n            \"state\": \"validated\",\r\n            \"date\": \"2018-05-11 08:08:50\",\r\n            \"type\": \"incoming\",\r\n            \"fee\": \"0.0001\",\r\n            \"result\": \"tesSUCCESS\",\r\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n            \"amount\": {\r\n                \"currency\": \"SLC\",\r\n                \"value\": \"0.12\",\r\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n            },\r\n            \"effects\": [],\r\n            \"memos\": [\r\n                {\r\n                    \"memo_type\": \"537472696E67\",\r\n                    \"memo_data\": \"4A6176612074657374206D656D6F\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"success\": true\r\n}",
+      "example" : "{\n    \"transactions\": [\n        {\n            \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\n            \"ledger\": \"1323051\",\n            \"state\": \"validated\",\n            \"date\": 1526026150,\n            \"time\": \"2018-05-11T08:09:10.000Z\",\n            \"type\": \"incoming\",\n            \"fee\": \"0.0001\",\n            \"result\": \"tesSUCCESS\",\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\n            \"amount\": {\n                \"currency\": \"SLC\",\n                \"value\": \"0.1\",\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\n            },\n            \"effects\": []\n        },\n        {\n            \"hash\": \"9E583AF987895774DDA992853719B9B38238F8BE7EA79A9BBF635B0A38A54B13\",\n            \"ledger\": \"1323049\",\n            \"state\": \"validated\",\n            \"date\": 1526026130,\n            \"time\": \"2018-05-11T08:08:50.000Z\",\n            \"type\": \"incoming\",\n            \"fee\": \"0.0001\",\n            \"result\": \"tesSUCCESS\",\n            \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\n            \"amount\": {\n                \"currency\": \"SLC\",\n                \"value\": \"0.12\",\n                \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\n            },\n            \"effects\": [],\n            \"memos\": [\n                {\n                    \"memo_type\": \"537472696E67\",\n                    \"memo_data\": \"4A6176612074657374206D656D6F\"\n                }\n            ]\n        }\n    ],\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Transaction"
       }
@@ -1398,7 +1410,7 @@
           "description" : "请求结果"
         }
       },
-      "example" : "{\r\n    \"transaction\": {\r\n        \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\r\n        \"ledger\": \"1323051\",\r\n        \"state\": \"validated\",\r\n        \"date\": \"2018-05-11 08:09:10\",\r\n        \"type\": \"incoming\",\r\n        \"fee\": \"0.0001\",\r\n        \"result\": \"tesSUCCESS\",\r\n        \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\r\n        \"amount\": {\r\n            \"currency\": \"SLC\",\r\n            \"value\": \"0.1\",\r\n            \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\r\n        },\r\n        \"effects\": []\r\n    },\r\n    \"success\": true\r\n}",
+      "example" : "{\n    \"transaction\": {\n        \"hash\": \"273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536\",\n        \"ledger\": \"1323051\",\n        \"state\": \"validated\",\n        \"date\": 1526026150,\n        \"time\": \"2018-05-11T08:09:10.000Z\",\n        \"type\": \"incoming\",\n        \"fee\": \"0.0001\",\n        \"result\": \"tesSUCCESS\",\n        \"counterparty\": \"6sTCvbC3rwDdKiqoJCExZKBcSBswaVSf2s\",\n        \"amount\": {\n            \"currency\": \"SLC\",\n            \"value\": \"0.1\",\n            \"issuer\": \"6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq\"\n        },\n        \"effects\": []\n    },\n    \"success\": true\n}",
       "x-restlet" : {
         "section" : "Transaction"
       }

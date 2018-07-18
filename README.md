@@ -2,7 +2,7 @@
 The javascript version of SDChain SDK
 
 ## Function Description
-1. Contains interfaces provided by [REST-API](https://rest-beta.sdchain.io/).
+1. Contains interfaces provided by [REST-API](https://cable.sdchain.io/).
 2. Including usage examples, in .test/*.ts .
 3. Explicitly explain the dependent version,and the dependent third-party libraries and their versions.
 4. Includes instructions on how to run the examples.
@@ -35,7 +35,7 @@ example:
 ```typescript
 import Service from 'sdchain-sdk-js/source/Service';
 
-const service = new Service('https://rest-beta.sdchain.io', 'v1');
+const service = new Service('https://cable.sdchain.io', 'v1');
 ```
 
 
@@ -46,7 +46,7 @@ example:
 import Service from 'sdchain-sdk-js/source/Service';
 import Service from 'sdchain-sdk-js/source/Server';
 
-const service = new Service('https://rest-beta.sdchain.io', 'v1');
+const service = new Service('https://cable.sdchain.io', 'v1');
 const server = new Server(service);
 ```
 
@@ -57,7 +57,7 @@ example:
 import Service from 'sdchain-sdk-js/source/Service';
 import Service from 'sdchain-sdk-js/source/Wallet';
 
-const service = new Service('https://rest-beta.sdchain.io', 'v1');
+const service = new Service('https://cable.sdchain.io', 'v1');
 const wallet = new Wallet(service);
 ```
 

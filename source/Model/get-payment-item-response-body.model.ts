@@ -17,6 +17,7 @@ export interface GetPaymentItemResponseBody {
     destination_account?: Address;
     amount: PaymentAmount;
     direction: PaymentDirection;
+    date: number;
     timestamp: string;
     fee: string;
     memos?: Array<MemoItem>;

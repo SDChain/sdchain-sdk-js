@@ -37,7 +37,9 @@ describe('Test Transaction API:', () => {
 
     const item = new GetTransactionItem(online);
     const response = await item.fetch(options);
+    // console.dir(response, {depth: null});
     const test = await item.validateResponseBody(response);
+    // console.log(test.humanReadable());
     expect(test.errors.length).toBe(0);
 
     expect(response.transaction.state).toBe(OrderState.validated);
